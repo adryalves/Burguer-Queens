@@ -1,6 +1,8 @@
 
+using Assets.Scripts.Menu;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -36,6 +38,12 @@ public class MenuFasesScript : MonoBehaviour, IJogadorPersistencia
 
         AtualizarFases();
         AtualizarMoedas();
+    
+    }
+    public void SaveData(DadosJogador data)
+    {
+        data.moedas = this.moedas;
+
     }
 
     private void AtualizarFases()
@@ -43,17 +51,13 @@ public class MenuFasesScript : MonoBehaviour, IJogadorPersistencia
         for (int i = 0; i < 5; i++)
         {
             int numeroFase = i + 1;
-
             
             bool liberada = faseAtual >= numeroFase;
-
            
             faseButtons[i].interactable = liberada;
-
         
             if (liberada)
-            {
-                
+            {               
                 faseImages[i].sprite = spritesLiberados[i];
             }
             else
@@ -76,15 +80,11 @@ public class MenuFasesScript : MonoBehaviour, IJogadorPersistencia
             Debug.LogError("txtMoedas não foi conectado no Inspector!");
     }
 
-    void Update()
+    public void IrParaProximaFase()
     {
-        
+        SceneManager.LoadScene("CenaFase");
     }
 
   
 
-    public void SaveData(DadosJogador data)
-    {
-        data.moedas = 100;
-    }
 }

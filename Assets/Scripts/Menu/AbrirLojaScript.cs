@@ -12,7 +12,7 @@ namespace Assets.Scripts.Menu
     {
         public void AbrirLoja()
         {
-            SceneManager.LoadScene("Loja_Scene");
+            SceneManager.LoadScene("CenaLoja");
         }
     }
 }
