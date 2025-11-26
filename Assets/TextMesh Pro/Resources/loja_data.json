@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "id": "frigideira",
+      "preco": 120,
+      "quantidadeMax": 4
+    },
+    {
+      "id": "liquidificador",
+      "preco": 140,
+      "quantidadeMax": 2
+    },
+    {
+      "id": "bandeja",
+      "preco": 120,
+      "quantidadeMax": 4
+    }
+  ]
+}
