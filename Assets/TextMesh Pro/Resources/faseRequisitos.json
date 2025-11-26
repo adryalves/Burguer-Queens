@@ -1,0 +1,74 @@
+{
+  "fases": [
+    {
+      "fase": 1,
+      "moedas": 150,
+      "clientesObrigatorios": 0,
+      "ingredientesObrigatorios": ["paoBase", "carne", "queijo", "paoTopo"],
+      "ingredientesNovos": [],
+      "utensilios": {
+        "frigideiras": 1,
+        "pratos": 1,
+        "maquinasSuco": 1,
+        "copos": 1,
+        "bebidasOpcoes": 1
+      }
+    },
+    {
+      "fase": 2,
+      "moedas": 300,
+      "clientesObrigatorios": 0,
+      "ingredientesObrigatorios": ["paoBase", "carne", "queijo", "paoTopo", "tomate", "alface"],
+      "ingredientesNovos": ["tomate", "alface"],
+      "utensilios": {
+        "frigideiras": 1,
+        "pratos": 1,
+        "maquinasSuco": 1,
+        "copos": 1,
+        "bebidasOpcoes": 1
+      }
+    },
+    {
+      "fase": 3,
+      "moedas": 400,
+      "clientesObrigatorios": 2,
+      "ingredientesObrigatorios": ["paoBase", "carne", "queijo", "paoTopo", "tomate", "alface", "maionese"],
+      "ingredientesNovos": ["maionese", "novaBebida"],
+      "utensilios": {
+        "frigideiras": 1,
+        "pratos": 1,
+        "maquinasSuco": 1,
+        "copos": 1,
+        "bebidasOpcoes": 2
+      }
+    },
+    {
+      "fase": 4,
+      "moedas": 400,
+      "clientesObrigatorios": 3,
+      "ingredientesObrigatorios": ["paoBase", "carne", "queijo", "paoTopo", "tomate", "alface", "maionese", "ketchup", "bacon"],
+      "ingredientesNovos": ["ketchup", "bacon"],
+      "utensilios": {
+        "frigideiras": 1,
+        "pratos": 1,
+        "maquinasSuco": 1,
+        "copos": 1,
+        "bebidasOpcoes": 2
+      }
+    },
+    {
+      "fase": 5,
+      "moedas": 600,
+      "clientesObrigatorios": 4,
+      "ingredientesObrigatorios": ["paoBase", "carne", "queijo", "paoTopo", "tomate", "alface", "maionese", "ketchup", "bacon", "batataFrita"],
+      "ingredientesNovos": ["batataFrita"],
+      "utensilios": {
+        "frigideiras": 1,
+        "pratos": 1,
+        "maquinasSuco": 1,
+        "copos": 1,
+        "bebidasOpcoes": 2
+      }
+    }
+  ]
+}
