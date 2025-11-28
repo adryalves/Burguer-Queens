@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 611145d0da4246940b9adb6ed09f13e5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3926145106388036398
+    second: Objetivos_0
+  - first:
+      213: -9150788974246484061
+    second: Objetivos_1
+  - first:
+      213: -91871704224962233
+    second: Objetivos_2
+  - first:
+      213: -5099254506378060142
+    second: Objetivos_3
+  - first:
+      213: -1067156120666352302
+    second: Objetivos_4
+  - first:
+      213: -4091092394543432112
+    second: Objetivos_5
+  - first:
+      213: -3258038436919080045
+    second: Objetivos_6
+  - first:
+      213: 30856558326947306
+    second: Objetivos_7
+  - first:
+      213: -3334988141152002336
+    second: Objetivos_8
+  - first:
+      213: 7568451853377769240
+    second: Objetivos_9
+  - first:
+      213: -2541311505148676692
+    second: Objetivos_10
+  - first:
+      213: -4740788534859172275
+    second: Objetivos_11
+  - first:
+      213: 7953399572143829796
+    second: Objetivos_12
+  - first:
+      213: 3999632599598595081
+    second: Objetivos_13
+  - first:
+      213: 4277150504812189140
+    second: Objetivos_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Objetivos_0
+      rect:
+        serializedVersion: 2
+        x: 2902
+        y: 2577
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d45a1dc3d78389c0800000000000000
+      internalID: -3926145106388036398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_1
+      rect:
+        serializedVersion: 2
+        x: 2727
+        y: 2410
+        width: 121
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a72a7f29edd10180800000000000000
+      internalID: -9150788974246484061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_2
+      rect:
+        serializedVersion: 2
+        x: 2862
+        y: 2407
+        width: 82
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 749e2c8fb2b99bef0800000000000000
+      internalID: -91871704224962233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_3
+      rect:
+        serializedVersion: 2
+        x: 2953
+        y: 2411
+        width: 105
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29e96002b0fcb39b0800000000000000
+      internalID: -5099254506378060142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_4
+      rect:
+        serializedVersion: 2
+        x: 3069
+        y: 2409
+        width: 93
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2555ccb8923b031f0800000000000000
+      internalID: -1067156120666352302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_5
+      rect:
+        serializedVersion: 2
+        x: 3181
+        y: 2407
+        width: 100
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05ebfe784258937c0800000000000000
+      internalID: -4091092394543432112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_6
+      rect:
+        serializedVersion: 2
+        x: 2555
+        y: 1572
+        width: 103
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39b8edead4f19c2d0800000000000000
+      internalID: -3258038436919080045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_7
+      rect:
+        serializedVersion: 2
+        x: 2679
+        y: 1576
+        width: 92
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed911650ef9d6000800000000000000
+      internalID: 30856558326947306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_8
+      rect:
+        serializedVersion: 2
+        x: 2779
+        y: 1574
+        width: 91
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ee9e7484fdb7b1d0800000000000000
+      internalID: -3334988141152002336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_9
+      rect:
+        serializedVersion: 2
+        x: 2890
+        y: 1576
+        width: 93
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81f8a3c7cda880960800000000000000
+      internalID: 7568451853377769240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_10
+      rect:
+        serializedVersion: 2
+        x: 2985
+        y: 1572
+        width: 180
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca5fff786a27bbcd0800000000000000
+      internalID: -2541311505148676692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_11
+      rect:
+        serializedVersion: 2
+        x: 3173
+        y: 1578
+        width: 105
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d46797002f5553eb0800000000000000
+      internalID: -4740788534859172275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_12
+      rect:
+        serializedVersion: 2
+        x: 3289
+        y: 1572
+        width: 103
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 423706e95c6206e60800000000000000
+      internalID: 7953399572143829796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_13
+      rect:
+        serializedVersion: 2
+        x: 3409
+        y: 1627
+        width: 36
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90c752b88ac818730800000000000000
+      internalID: 3999632599598595081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objetivos_14
+      rect:
+        serializedVersion: 2
+        x: 3409
+        y: 1577
+        width: 36
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d5963a09bd7b5b30800000000000000
+      internalID: 4277150504812189140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Objetivos_0: -3926145106388036398
+      Objetivos_1: -9150788974246484061
+      Objetivos_10: -2541311505148676692
+      Objetivos_11: -4740788534859172275
+      Objetivos_12: 7953399572143829796
+      Objetivos_13: 3999632599598595081
+      Objetivos_14: 4277150504812189140
+      Objetivos_2: -91871704224962233
+      Objetivos_3: -5099254506378060142
+      Objetivos_4: -1067156120666352302
+      Objetivos_5: -4091092394543432112
+      Objetivos_6: -3258038436919080045
+      Objetivos_7: 30856558326947306
+      Objetivos_8: -3334988141152002336
+      Objetivos_9: 7568451853377769240
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
