@@ -3,10 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class botaoFechar : MonoBehaviour
 {
-    public string cenaMenu;
+    public string CenaMenu;
 
     public void Fechar()
     {
-        SceneManager.LoadScene(cenaMenu);
+        SceneManager.LoadScene(CenaMenu);
     }
 }
