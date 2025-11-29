@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Menu de fases desfocado_0: 6834752558776288053
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
