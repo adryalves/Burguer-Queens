@@ -27,15 +27,20 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseDown()
         {
+          
+            var carne = GetComponent<CarneController>();
+            if (carne != null && !carne.PodeSerArrastada())
+                return;
+
             dragging = true;
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0f;
             offset = transform.position - mouse;
 
-           
-            if (sr != null && GetComponent<BandejaController>() == null)
-                sr.sortingOrder = 1000;
+            var sr = GetComponent<SpriteRenderer>();
+            if (sr != null) sr.sortingOrder = 1000;
         }
+
 
         void OnMouseDrag()
         {
