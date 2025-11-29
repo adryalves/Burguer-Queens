@@ -9,7 +9,6 @@ namespace Assets.Scripts.CenaJogo
 {
     public class ArrastarItensController : MonoBehaviour
     {
-
         private Vector3 startPosition;
         private bool dragging = false;
         private Vector3 offset;
@@ -23,10 +22,7 @@ namespace Assets.Scripts.CenaJogo
 
             sr = GetComponent<SpriteRenderer>();
             if (sr != null)
-            {
-                // guarda a ordem original do prefab/objeto
                 sortingOrderOriginal = sr.sortingOrder;
-            }
         }
 
         void OnMouseDown()
@@ -35,9 +31,10 @@ namespace Assets.Scripts.CenaJogo
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0f;
             offset = transform.position - mouse;
-        
+
            
-            if (sr != null) sr.sortingOrder = 1000;
+            if (sr != null && GetComponent<BandejaController>() == null)
+                sr.sortingOrder = 1000;
         }
 
         void OnMouseDrag()
@@ -52,12 +49,12 @@ namespace Assets.Scripts.CenaJogo
         {
             dragging = false;
 
-            // volta para a ordem original (2 pro prato, 3 pra carne, etc.)
-            if (sr != null) sr.sortingOrder = sortingOrderOriginal;
+            
+            if (sr != null && GetComponent<BandejaController>() == null)
+                sr.sortingOrder = sortingOrderOriginal;
 
             SendMessage("OnDragReleased", SendMessageOptions.DontRequireReceiver);
         }
-
 
         public void ResetToStart()
         {
@@ -70,6 +67,4 @@ namespace Assets.Scripts.CenaJogo
             transform.position = pos;
         }
     }
-
-
 }

@@ -1,66 +1,114 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
+using Assets.Scripts.CenaJogo;
 
-namespace Assets.Scripts.CenaJogo
+public class PratoController : MonoBehaviour
 {
+    public bool estaNaBandeja = false;
 
-    public class PratoController : MonoBehaviour
+    private Transform bandejaTransform;
+    private BandejaController bandejaController;
+
+    
+    public void OnDragReleased()
     {
-        public bool estaNaBandeja = false;
-        private Transform bandejaTransform;
-
-        
-        public void OnDragReleased()
+        if (estaNaBandeja && bandejaTransform != null)
         {
-            if (estaNaBandeja)
+            
+            transform.position = bandejaTransform.position;
+        }
+        else
+        {
+            
+            Destroy(this.gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        AreaDetector area = col.GetComponent<AreaDetector>();
+
+        if (area != null && area.areaName == "Bandeja")
+        {
+            
+            BandejaController bc = col.GetComponentInParent<BandejaController>();
+
+            if (bc != null)
             {
                 
-                transform.position = bandejaTransform.position;
+                if (bc.pratoAtual != null && bc.pratoAtual != this)
+                {
+                    Destroy(this.gameObject);
+                    return;
+                }
+
+                bandejaController = bc;
+                bandejaController.pratoAtual = this;
+                bandejaTransform = bc.transform;
             }
             else
             {
-               
-                Destroy(this.gameObject);
-            }
-        }
-
-        void OnTriggerEnter2D(Collider2D col)
-        {
-            AreaDetector area = col.GetComponent<AreaDetector>();
-
-            if (area != null && area.areaName == "Bandeja")
-            {
-                Debug.Log("esta na bandeja hein");
-                estaNaBandeja = true;
+                
                 bandejaTransform = col.transform;
             }
+
+            estaNaBandeja = true;
+
+            
+            transform.position = bandejaTransform.position;
+
+            
+            var drag = GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
+            if (drag != null) Destroy(drag);
         }
+    }
 
-        void OnTriggerExit2D(Collider2D col)
+    void OnTriggerExit2D(Collider2D col)
+    {
+        AreaDetector area = col.GetComponent<AreaDetector>();
+
+        if (area != null && area.areaName == "Bandeja")
         {
-            AreaDetector area = col.GetComponent<AreaDetector>();
+            estaNaBandeja = false;
 
-            if (area != null && area.areaName == "Bandeja")
+            if (bandejaController != null && bandejaController.pratoAtual == this)
             {
-                estaNaBandeja = false;
-                bandejaTransform = null;
+                bandejaController.pratoAtual = null;
             }
+
+            bandejaTransform = null;
+        }
+    }
+
+    
+    public void ColocarIngredienteNoPrato(GameObject ingrediente)
+    {
+        
+        Transform alvo = transform.Find("IngredientesEmpilhados");
+        if (alvo == null)
+        {
+            Debug.LogWarning("Prato: não encontrou o filho 'IngredientesEmpilhados'. Usando o próprio prato.");
+            alvo = transform;
         }
 
         
-        public void ColocarIngredienteNoPrato(GameObject ingrediente)
-        {
-            
-            ingrediente.transform.SetParent(
-                transform.Find("IngredientesEmpilhados")
-            );
+        ingrediente.transform.SetParent(alvo, worldPositionStays: false);
 
-            
-            ingrediente.transform.localPosition = new Vector3(0, 0, -1);
-        }
+        
+        int index = alvo.childCount - 1; 
 
-    }    }
+        
+        float offsetY = 2.0f; 
+
+       
+        ingrediente.transform.localPosition = new Vector3(0f, index * offsetY, -1f);
+
+        
+        var drag = ingrediente.GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
+        if (drag != null) Destroy(drag);
+
+       
+        var col2D = ingrediente.GetComponent<Collider2D>();
+        if (col2D != null) col2D.enabled = false;
+    }
+}

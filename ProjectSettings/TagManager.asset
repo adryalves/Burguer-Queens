@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AreaPrato
   - AreaBandeja
+  - AreaLixeira
   layers:
   - Default
   - TransparentFX

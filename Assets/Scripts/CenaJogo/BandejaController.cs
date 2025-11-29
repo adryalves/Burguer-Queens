@@ -1,16 +1,26 @@
-﻿using Assets.Scripts.CenaJogo;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class BandejaController : MonoBehaviour
+namespace Assets.Scripts.CenaJogo
 {
-    public PratoController pratoAtual;
-
-    void Update()
+    public class BandejaController : MonoBehaviour
     {
-        if (pratoAtual != null)
+       
+        public PratoController pratoAtual;
+
+        void Update()
         {
-            pratoAtual.transform.position =
-                transform.position + new Vector3(0, 0.7f, 0);
+           
+            if (pratoAtual != null)
+            {
+                
+                pratoAtual.transform.position =
+                    transform.position + new Vector3(0f, 0.1f, 0f);
+            }
         }
     }
 }
