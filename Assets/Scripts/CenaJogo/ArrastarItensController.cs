@@ -14,9 +14,19 @@ namespace Assets.Scripts.CenaJogo
         private bool dragging = false;
         private Vector3 offset;
 
+        private SpriteRenderer sr;
+        private int sortingOrderOriginal;
+
         void Start()
         {
             startPosition = transform.position;
+
+            sr = GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                // guarda a ordem original do prefab/objeto
+                sortingOrderOriginal = sr.sortingOrder;
+            }
         }
 
         void OnMouseDown()
@@ -26,7 +36,7 @@ namespace Assets.Scripts.CenaJogo
             mouse.z = 0f;
             offset = transform.position - mouse;
         
-            var sr = GetComponent<SpriteRenderer>();
+           
             if (sr != null) sr.sortingOrder = 1000;
         }
 
@@ -41,11 +51,13 @@ namespace Assets.Scripts.CenaJogo
         void OnMouseUp()
         {
             dragging = false;
-            var sr = GetComponent<SpriteRenderer>();
-            if (sr != null) sr.sortingOrder = 0;
-        
+
+            // volta para a ordem original (2 pro prato, 3 pra carne, etc.)
+            if (sr != null) sr.sortingOrder = sortingOrderOriginal;
+
             SendMessage("OnDragReleased", SendMessageOptions.DontRequireReceiver);
         }
+
 
         public void ResetToStart()
         {

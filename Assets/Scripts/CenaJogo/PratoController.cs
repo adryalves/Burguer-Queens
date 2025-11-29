@@ -34,6 +34,7 @@ namespace Assets.Scripts.CenaJogo
 
             if (area != null && area.areaName == "Bandeja")
             {
+                Debug.Log("esta na bandeja hein");
                 estaNaBandeja = true;
                 bandejaTransform = col.transform;
             }
