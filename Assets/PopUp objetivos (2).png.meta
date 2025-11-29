@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b42e73c43be205844887251dde39f633
+guid: ebc59c85cee411c4bbd4c01e48b09d6e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3320988523739146049
-    second: somOn_0
+      213: 6620487308305494361
+    second: PopUp objetivos (2)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: somOn_0
+      name: PopUp objetivos (2)_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 2160
-        height: 2160
+        width: 5999
+        height: 3354
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 147ee9c8775861e20800000000000000
-      internalID: 3320988523739146049
+      spriteID: 951f78b4122b0eb50800000000000000
+      internalID: 6620487308305494361
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      somOn_0: 3320988523739146049
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
