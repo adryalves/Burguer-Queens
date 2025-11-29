@@ -9,13 +9,22 @@ public class PratoController : MonoBehaviour
     private Transform bandejaTransform;
     private BandejaController bandejaController;
 
-    
+    [Header("Offsets de posição")]
+    public Vector3 offsetNaBandeja = Vector3.zero;
+
+    [SerializeField] private int baseOrderInLayer = 1000;
+
+
     public void OnDragReleased()
     {
         if (estaNaBandeja && bandejaTransform != null)
         {
-            
-            transform.position = bandejaTransform.position;
+            transform.SetParent(bandejaTransform);
+
+           
+            transform.localPosition = offsetNaBandeja;
+
+           
         }
         else
         {
@@ -95,15 +104,22 @@ public class PratoController : MonoBehaviour
         ingrediente.transform.SetParent(alvo, worldPositionStays: false);
 
         
-        int index = alvo.childCount - 1; 
+        int index = alvo.childCount - 1;
 
-        
+
         float offsetY = 2.0f; 
+      
 
-       
-        ingrediente.transform.localPosition = new Vector3(0f, index * offsetY, -1f);
+        ingrediente.transform.localPosition = new Vector3(0f, 0.5f + index * offsetY, -1f);
 
-        
+        SpriteRenderer sr = ingrediente.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            
+            sr.sortingOrder = baseOrderInLayer + index;
+        }
+
+
         var drag = ingrediente.GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
         if (drag != null) Destroy(drag);
 

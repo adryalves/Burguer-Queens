@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.CenaJogo
@@ -20,14 +16,18 @@ namespace Assets.Scripts.CenaJogo
         {
             startPosition = transform.position;
 
+           
             sr = GetComponent<SpriteRenderer>();
+            if (sr == null)
+                sr = GetComponentInChildren<SpriteRenderer>();
+
             if (sr != null)
                 sortingOrderOriginal = sr.sortingOrder;
         }
 
         void OnMouseDown()
         {
-          
+           
             var carne = GetComponent<CarneController>();
             if (carne != null && !carne.PodeSerArrastada())
                 return;
@@ -37,14 +37,15 @@ namespace Assets.Scripts.CenaJogo
             mouse.z = 0f;
             offset = transform.position - mouse;
 
-            var sr = GetComponent<SpriteRenderer>();
-            if (sr != null) sr.sortingOrder = 1000;
+           
+            if (sr != null && GetComponent<BandejaController>() == null)
+                sr.sortingOrder = 1000;
         }
-
 
         void OnMouseDrag()
         {
             if (!dragging) return;
+
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0f;
             transform.position = mouse + offset;
@@ -52,12 +53,15 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseUp()
         {
+            if (!dragging) return;
+
             dragging = false;
 
             
             if (sr != null && GetComponent<BandejaController>() == null)
                 sr.sortingOrder = sortingOrderOriginal;
 
+            
             SendMessage("OnDragReleased", SendMessageOptions.DontRequireReceiver);
         }
 
