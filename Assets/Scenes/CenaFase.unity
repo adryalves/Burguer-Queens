@@ -314,7 +314,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0000023841858, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -324,7 +324,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 21.603127, y: 24.800001}
+  m_Size: {x: 20.355854, y: 24.800001}
   m_EdgeRadius: 0
 --- !u!1 &138244474
 GameObject:
@@ -2627,7 +2627,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteCrua: {fileID: -1700256053111066214, guid: 0b3b259979cfe9b42b2d5e5d92812146, type: 3}
   spriteAssada: {fileID: 2781060883522649985, guid: 972b0c016a614bd46b49c376180c7252, type: 3}
+  spriteQueimada: {fileID: -370142528826055892, guid: fc00b766bfce77b4bb0da02371e1ec43, type: 3}
   tempoCozimento: 3
+  tempoAteQueimar: 4
   offsetFrigideira: {x: 0, y: 0.08, z: 0}
 --- !u!1 &1397735956
 GameObject:
