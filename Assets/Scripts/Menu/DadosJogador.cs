@@ -9,7 +9,7 @@ public class DadosJogador
 
     public List<int> pontuacaoPorFase = new List<int>()
     {
-        0, 0, 0, 0
+        0, 0, 0, 0,0
     };
 
 
