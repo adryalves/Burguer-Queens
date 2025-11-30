@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      suqueira2vazia_0: -2476109768268731146
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
