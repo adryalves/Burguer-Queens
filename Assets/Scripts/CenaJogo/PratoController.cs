@@ -127,4 +127,16 @@ public class PratoController : MonoBehaviour
         var col2D = ingrediente.GetComponent<Collider2D>();
         if (col2D != null) col2D.enabled = false;
     }
+
+    public bool TemAlgumIngredienteNoPrato()
+    {
+        Transform alvo = transform.Find("IngredientesEmpilhados");
+        if (alvo == null)
+        {
+            
+            alvo = transform;
+        }
+
+        return alvo.childCount > 0;
+    }
 }
