@@ -32,34 +32,31 @@ namespace Assets.Scripts.CenaJogo
 
         public void OnDragReleased()
         {
-            // Tem lanche? (prato na bandeja + pelo menos 1 ingrediente)
+       
             bool temPratoComLanche =
                 pratoAtual != null && pratoAtual.TemAlgumIngredienteNoPrato();
 
-            // Tem suco na bandeja?
+           
             bool temCopo = (copoNaBandeja != null);
 
-            // Bandeja completamente vazia → sempre só volta pro lugar
+     
             if (!temPratoComLanche && !temCopo)
             {
                 VoltarParaPosicaoInicial();
                 return;
             }
 
-            // ============================
-            // 1) ENTREGA PARA O CLIENTE
-            // ============================
-            // Só pode entregar se tiver lanche (prato com ingrediente).
+
             if (sobreCliente && temPratoComLanche)
             {
-                // some com o prato
+               
                 if (pratoAtual != null)
                 {
                     Destroy(pratoAtual.gameObject);
                     pratoAtual = null;
                 }
 
-                // se tiver suco junto, também reseta
+               
                 if (copoNaBandeja != null)
                 {
                     copoNaBandeja.ResetarCopoParaOrigem();
@@ -70,10 +67,7 @@ namespace Assets.Scripts.CenaJogo
                 return;
             }
 
-            // ============================
-            // 2) JOGAR FORA NA LIXEIRA
-            // ============================
-            // Aqui pode descartar se tiver lanche OU só suco
+       
             if (sobreLixeira && (temPratoComLanche || temCopo))
             {
                 if (pratoAtual != null)
@@ -92,10 +86,7 @@ namespace Assets.Scripts.CenaJogo
                 return;
             }
 
-            // ============================
-            // 3) Qualquer outro lugar
-            // ============================
-            // Não entregou nem jogou fora → só volta pro lugar com o que tiver em cima
+        
             VoltarParaPosicaoInicial();
         }
 
