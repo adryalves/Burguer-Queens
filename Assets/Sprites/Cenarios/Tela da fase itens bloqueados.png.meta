@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Tela da fase itens bloqueados_0: 2442245416766488669
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

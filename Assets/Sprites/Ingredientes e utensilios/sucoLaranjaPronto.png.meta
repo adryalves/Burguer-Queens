@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sucoLaranjaPronto_0: 5177284105485801118
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

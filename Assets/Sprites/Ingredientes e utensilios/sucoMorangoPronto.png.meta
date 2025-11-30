@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sucoMorangoPronto_0: -2244987367690422619
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 57b1fa9498bcc964780542d4292da4a7
+guid: 8d887a4521339cd4aa7de929d974b047
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4976024027807306815
-    second: suqueira2morango_0
+      213: 4733976307762174669
+    second: Cliente_02_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: suqueira2morango_0
+      name: Cliente_02_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 71
         y: 0
-        width: 1615
-        height: 3121
+        width: 875
+        height: 1007
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f34534b3d736e0540800000000000000
-      internalID: 4976024027807306815
+      spriteID: dca9747ce5672b140800000000000000
+      internalID: 4733976307762174669
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      suqueira2morango_0: 4976024027807306815
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

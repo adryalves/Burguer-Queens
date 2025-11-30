@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      copoVazio_0: -5145065025032619290
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
