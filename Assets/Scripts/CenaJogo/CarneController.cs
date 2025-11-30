@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.CenaJogo
 {
@@ -8,14 +9,19 @@ namespace Assets.Scripts.CenaJogo
         [Header("Sprites")]
         public Sprite spriteCrua;
         public Sprite spriteAssada;
-        public Sprite spriteQueimada;   
+        public Sprite spriteQueimada;
 
         [Header("Tempo de cozimento (segundos)")]
         public float tempoCozimento = 3f;
-        [Tooltip("Tempo depois de assada até queimar (segundos)")]
-        public float tempoAteQueimar = 4f;  
+        public float tempoAteQueimar = 4f;
 
-        [Header("Offset na frigideira (ajuste no Inspector)")]
+        [Header("Timer Visual")]
+        public Image imagemTimer;
+        public Color corCozinhando = Color.green;
+        public Color corMeio = Color.yellow;
+        public Color corQueimando = Color.red;
+
+        [Header("Offset na frigideira")]
         public Vector3 offsetFrigideira = new Vector3(0f, 0.08f, 0f);
 
         private static bool frigideiraOcupada = false;
@@ -25,82 +31,76 @@ namespace Assets.Scripts.CenaJogo
             Crua,
             NaFrigideira,
             Assada,
-            Queimada,   
+            Queimada,
             NoPrato,
             NoLixo
         }
 
         private EstadoCarne estadoAtual = EstadoCarne.Crua;
 
-        private bool foiColocadaNaFrigideira = false;
         private bool foiColocadaNoPrato = false;
         private bool foiJogadaNoLixo = false;
-
-        
         private bool estaSobreFrigideira = false;
 
         private ArrastarItensController drag;
-        private Collider2D col2D;
         private SpriteRenderer sr;
-
         private Transform frigideiraTransform;
+
+        private Coroutine rotinaCozinhar;
+        private Coroutine rotinaQueimar;
 
         void Awake()
         {
             drag = GetComponent<ArrastarItensController>();
-            col2D = GetComponent<Collider2D>();
             sr = GetComponent<SpriteRenderer>();
 
-            if (spriteCrua != null && sr != null)
-                sr.sprite = spriteCrua;
+            sr.sprite = spriteCrua;
+
+            if (imagemTimer != null)
+            {
+                imagemTimer.fillAmount = 0f;
+                imagemTimer.enabled = false;
+            }
         }
 
-       
         public void OnDragReleased()
         {
             switch (estadoAtual)
             {
                 case EstadoCarne.Crua:
-
                     if (estaSobreFrigideira && !frigideiraOcupada && frigideiraTransform != null)
                     {
                         frigideiraOcupada = true;
-                        foiColocadaNaFrigideira = true;
                         estadoAtual = EstadoCarne.NaFrigideira;
 
                         transform.SetParent(frigideiraTransform);
                         transform.position = frigideiraTransform.position + offsetFrigideira;
 
-                        if (drag != null)
-                            drag.enabled = false;
+                        drag.enabled = false;
 
-                        StartCoroutine(CozinharCarne());
+                        ReiniciarTimer();
+
+                        if (rotinaCozinhar != null) StopCoroutine(rotinaCozinhar);
+                        if (rotinaQueimar != null) StopCoroutine(rotinaQueimar);
+
+                        rotinaCozinhar = StartCoroutine(Cozinhar());
                     }
                     else
                     {
-                        
                         Destroy(gameObject);
                     }
                     break;
 
                 case EstadoCarne.Assada:
                 case EstadoCarne.Queimada:
-                   
                     if (foiColocadaNoPrato || foiJogadaNoLixo)
                         return;
 
-                    
                     if (frigideiraTransform != null)
                     {
                         transform.SetParent(frigideiraTransform);
                         transform.position = frigideiraTransform.position + offsetFrigideira;
                     }
-                    break;
-
-                case EstadoCarne.NaFrigideira:
-                case EstadoCarne.NoPrato:
-                case EstadoCarne.NoLixo:
-                   
                     break;
             }
         }
@@ -110,7 +110,6 @@ namespace Assets.Scripts.CenaJogo
             AreaDetector area = col.GetComponent<AreaDetector>();
             if (area == null) return;
 
-            
             if (area.areaName == "Frigideira")
             {
                 if (estadoAtual == EstadoCarne.Crua)
@@ -121,7 +120,6 @@ namespace Assets.Scripts.CenaJogo
                 return;
             }
 
-           
             if (area.areaName == "Prato" && estadoAtual == EstadoCarne.Assada)
             {
                 PratoController prato = col.GetComponentInParent<PratoController>();
@@ -132,17 +130,24 @@ namespace Assets.Scripts.CenaJogo
                     prato.ColocarIngredienteNoPrato(gameObject);
                     foiColocadaNoPrato = true;
                     estadoAtual = EstadoCarne.NoPrato;
+
+                    if (rotinaQueimar != null) StopCoroutine(rotinaQueimar);
+
+                    DesativarTimer();
                 }
                 return;
             }
 
-            
             if (area.areaName == "Lixeira" &&
                 (estadoAtual == EstadoCarne.Assada || estadoAtual == EstadoCarne.Queimada))
             {
                 frigideiraOcupada = false;
                 foiJogadaNoLixo = true;
                 estadoAtual = EstadoCarne.NoLixo;
+
+                if (rotinaQueimar != null) StopCoroutine(rotinaQueimar);
+
+                DesativarTimer();
                 Destroy(gameObject);
                 return;
             }
@@ -159,46 +164,93 @@ namespace Assets.Scripts.CenaJogo
             }
         }
 
-        
-        private IEnumerator CozinharCarne()
+        private void ReiniciarTimer()
         {
-            yield return new WaitForSeconds(tempoCozimento);
+            if (imagemTimer == null) return;
 
-            estadoAtual = EstadoCarne.Assada;
-
-            if (spriteAssada != null && sr != null)
-                sr.sprite = spriteAssada;
-
-            
-            if (drag != null)
-                drag.enabled = true;
-
-            
-            StartCoroutine(QueimarCarne());
+            imagemTimer.enabled = true;
+            imagemTimer.fillAmount = 0f;
+            imagemTimer.color = corCozinhando;
         }
 
-       
-        private IEnumerator QueimarCarne()
+        private void DesativarTimer()
         {
-            yield return new WaitForSeconds(tempoAteQueimar);
+            if (imagemTimer != null)
+            {
+                imagemTimer.enabled = false;
+                imagemTimer.fillAmount = 0f;
+            }
+        }
 
-           
+        private IEnumerator Cozinhar()
+        {
+            float t = 0f;
+            imagemTimer.enabled = true;
+            imagemTimer.color = corCozinhando;
+
+            while (t < tempoCozimento)
+            {
+                t += Time.deltaTime;
+                float progresso = t / tempoCozimento;
+
+                imagemTimer.fillAmount = progresso;
+
+                if (progresso > 0.5f)
+                    imagemTimer.color = corMeio;
+
+                yield return null;
+            }
+
+            estadoAtual = EstadoCarne.Assada;
+            sr.sprite = spriteAssada;
+            drag.enabled = true;
+
+            rotinaQueimar = StartCoroutine(Queimar());
+        }
+
+        private IEnumerator Queimar()
+        {
+            float t = 0f;
+
+            imagemTimer.fillAmount = 0f;
+
+            while (t < tempoAteQueimar)
+            {
+                if (estadoAtual != EstadoCarne.Assada)
+                    yield break;
+
+                t += Time.deltaTime;
+                float progresso = t / tempoAteQueimar;
+                imagemTimer.fillAmount = progresso;
+
+                float metade = tempoAteQueimar * 0.5f;
+
+                if (t <= metade)
+                {
+                    float p = t / metade;
+                    imagemTimer.color = Color.Lerp(corMeio, corQueimando, p * 0.3f);
+                }
+                else
+                {
+                    float p = (t - metade) / metade;
+                    imagemTimer.color = Color.Lerp(corMeio, corQueimando, 0.3f + p * 0.7f);
+                }
+
+                yield return null;
+            }
+
             if (estadoAtual == EstadoCarne.Assada)
             {
                 estadoAtual = EstadoCarne.Queimada;
+                sr.sprite = spriteQueimada;
+                drag.enabled = true;
 
-                if (spriteQueimada != null && sr != null)
-                    sr.sprite = spriteQueimada;
-
-               
-                if (drag != null)
-                    drag.enabled = true;
+                DesativarTimer();
             }
         }
 
         public bool PodeSerArrastada()
         {
-            
             return estadoAtual == EstadoCarne.Crua ||
                    estadoAtual == EstadoCarne.Assada ||
                    estadoAtual == EstadoCarne.Queimada;
