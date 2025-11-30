@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.CenaJogo.Assets.Scripts.CenaJogo;
+using Assets.Scripts.Menu;
+using UnityEngine;
 
 namespace Assets.Scripts.CenaJogo
 {
-    public class BandejaController : MonoBehaviour
+    public class BandejaController : MonoBehaviour, IJogadorPersistencia
     {
         
         public PratoController pratoAtual;
@@ -10,9 +12,13 @@ namespace Assets.Scripts.CenaJogo
        
         [HideInInspector] public CopoSucoController copoNaBandeja;
 
+        [HideInInspector] public ClienteController clienteAtual;
+
         private Vector3 posicaoInicial;
         private bool sobreCliente = false;
         private bool sobreLixeira = false;
+
+        public int moedas;
 
         void Awake()
         {
@@ -49,17 +55,33 @@ namespace Assets.Scripts.CenaJogo
 
             if (sobreCliente && temPratoComLanche)
             {
+                
+                string codigoEntregue = pratoAtual != null
+                    ? pratoAtual.GerarCodigoPorNome()
+                    : string.Empty;
+
+                bool sucoEntregue = temCopo;
+
                
+                if (clienteAtual != null)
+                {
+                    bool pedidoPerfeito;
+                    moedas = clienteAtual.RegistrarEntrega(sucoEntregue, codigoEntregue, out pedidoPerfeito);
+
+                    JogadorPersistenciaManager.Instance.SavePlayerData();
+                    
+                }
+
+                // Some com o prato e o suco (como já fazia)
                 if (pratoAtual != null)
                 {
                     Destroy(pratoAtual.gameObject);
                     pratoAtual = null;
                 }
 
-               
                 if (copoNaBandeja != null)
                 {
-                    copoNaBandeja.ResetarCopoParaOrigem();
+                    copoNaBandeja.VoltarParaOrigemVazio();
                     copoNaBandeja = null;
                 }
 
@@ -67,7 +89,7 @@ namespace Assets.Scripts.CenaJogo
                 return;
             }
 
-       
+
             if (sobreLixeira && (temPratoComLanche || temCopo))
             {
                 if (pratoAtual != null)
@@ -127,6 +149,16 @@ namespace Assets.Scripts.CenaJogo
         public void RegistrarCopoNaBandeja(CopoSucoController copo)
         {
             copoNaBandeja = copo;
+        }
+
+        public void LoadData(DadosJogador data)
+        {
+            
+        }
+
+        public void SaveData(DadosJogador data)
+        {
+            data.moedas += this.moedas;
         }
     }
 }

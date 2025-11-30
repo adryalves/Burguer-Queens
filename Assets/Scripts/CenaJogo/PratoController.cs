@@ -139,4 +139,45 @@ public class PratoController : MonoBehaviour
 
         return alvo.childCount > 0;
     }
+
+    public string GerarCodigoPorNome()
+    {
+        Transform pilha = transform.Find("IngredientesEmpilhados");
+        if (pilha == null) return string.Empty;
+
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+        for (int i = 0; i < pilha.childCount; i++)
+        {
+            string nome = pilha.GetChild(i).name;
+            sb.Append(ConverterNomeParaCodigo(nome));
+        }
+
+        return sb.ToString();
+    }
+
+    // Converte o nome do GameObject do ingrediente para a letra usada no pedido
+    private string ConverterNomeParaCodigo(string nome)
+    {
+        // Ajuste aqui os nomes para bater com os seus prefabs reais
+        switch (nome)
+        {
+            case "PaoBase":
+                return "B"; 
+
+            case "Carne":
+                return "C";
+
+            case "Queijo":
+                return "Q";
+
+            case "PaoCima":
+            case "Pao":
+                return "P"; // pão de cima
+
+            default:
+                return "?"; // algo inesperado, só para não quebrar
+        }
+    }
 }
+
