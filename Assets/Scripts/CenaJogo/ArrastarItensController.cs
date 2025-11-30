@@ -12,6 +12,8 @@ namespace Assets.Scripts.CenaJogo
         private SpriteRenderer sr;
         private int sortingOrderOriginal;
 
+        public bool podeInteragir = true;
+
         void Start()
         {
             startPosition = transform.position;
@@ -27,6 +29,7 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseDown()
         {
+            if (!podeInteragir) return;
            
             var carne = GetComponent<CarneController>();
             if (carne != null && !carne.PodeSerArrastada())
@@ -44,6 +47,7 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseDrag()
         {
+            if (!podeInteragir) return;
             if (!dragging) return;
 
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -74,6 +78,11 @@ namespace Assets.Scripts.CenaJogo
         {
             startPosition = pos;
             transform.position = pos;
+        }
+
+        public void AtivarInteracao(bool estado)
+        {
+            podeInteragir = estado;
         }
     }
 }
