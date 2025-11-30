@@ -195,9 +195,6 @@ namespace Assets.Scripts.CenaJogo
 
                 imagemTimer.fillAmount = progresso;
 
-                if (progresso > 0.5f)
-                    imagemTimer.color = corMeio;
-
                 yield return null;
             }
 
