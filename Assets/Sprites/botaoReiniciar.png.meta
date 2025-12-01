@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c07f2a3a821d31046b2d0087e046fd3c
+guid: 6844575b836f14a4192bb5829ebb18bd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6389294342564255275
-    second: Historia1_0
+      213: 6134846572245046232
+    second: botaoReiniciar_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Historia1_0
+      name: botaoReiniciar_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 6000
-        height: 3375
+        width: 2160
+        height: 535
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5d96b0ab5aaa457a0800000000000000
-      internalID: -6389294342564255275
+      spriteID: 8d35032247a532550800000000000000
+      internalID: 6134846572245046232
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Historia1_0: -6389294342564255275
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
