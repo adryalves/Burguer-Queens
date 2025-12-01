@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6844575b836f14a4192bb5829ebb18bd
+guid: 9648cc419bbff3f4a80951628c445bb8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6134846572245046232
-    second: botaoReiniciar_0
+      213: -8109234887877925928
+    second: botaoProximo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: botaoReiniciar_0
+      name: botaoProximo_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8d35032247a532550800000000000000
-      internalID: 6134846572245046232
+      spriteID: 8d3e4d385d5367f80800000000000000
+      internalID: -8109234887877925928
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      botaoReiniciar_0: 6134846572245046232
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
