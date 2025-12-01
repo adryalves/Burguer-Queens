@@ -1,25 +1,26 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MusicaPersistente : MonoBehaviour
 {
     private static MusicaPersistente instance;
     private AudioSource audioSource;
 
-    [Header("Botão de Música")]
+    [Header("Botão de Música (nome esperado: BotaoMusica)")]
     public Button botaoMusica;
-    public Sprite spriteOn;   
-    public Sprite spriteOff; 
-    public Image imagemBotao;
+    public Sprite spriteOn;
+    public Sprite spriteOff;
+    private Image imagemBotao;
 
-    [Header("Controle de Volume")]
-    public GameObject sliderVolumeGO; 
+    [Header("Controle de Volume (nome esperado: Slider)")]
+    public GameObject sliderVolumeGO;
     public Slider sliderVolume;
 
     private bool musicaAtiva = true;
     private bool sliderVisivel = false;
-    private float volumeAnterior = 1f; 
+    private float volumeAnterior = 1f;
 
     void Awake()
     {
@@ -29,24 +30,12 @@ public class MusicaPersistente : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             audioSource = GetComponent<AudioSource>();
-            audioSource.Play();
-            volumeAnterior = audioSource.volume;
+            if (audioSource == null) Debug.LogWarning("MusicaPersistente: não encontrou AudioSource no GameObject.");
 
-            if (botaoMusica != null)
-                botaoMusica.onClick.AddListener(ToggleMusica);
+            if (audioSource != null) audioSource.Play();
+            volumeAnterior = audioSource != null ? audioSource.volume : 1f;
 
-            if (sliderVolumeGO != null)
-                sliderVolumeGO.SetActive(false);
-
-            if (sliderVolume != null)
-            {
-                sliderVolume.minValue = 0f;
-                sliderVolume.maxValue = 1f;
-                sliderVolume.value = audioSource.volume;
-                sliderVolume.onValueChanged.AddListener(AtualizaVolume);
-            }
-
-            AtualizaImagemBotao();
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -54,41 +43,116 @@ public class MusicaPersistente : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        if (instance == this) SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene cena, LoadSceneMode modo)
+    {
+        RecarregarUI();
+    }
+
+    private void RecarregarUI()
+    {
+        GameObject botaoGO = GameObject.Find("BotaoMusica");
+        if (botaoGO != null)
+        {
+            botaoMusica = botaoGO.GetComponent<Button>();
+        }
+
+        imagemBotao = null;
+        if (botaoMusica != null)
+        {
+            imagemBotao = botaoMusica.GetComponent<Image>();
+            if (imagemBotao == null)
+                imagemBotao = botaoMusica.GetComponentInChildren<Image>();
+        }
+
+        sliderVolumeGO = GameObject.Find("Slider");
+        sliderVolume = sliderVolumeGO != null ? sliderVolumeGO.GetComponent<Slider>() : null;
+
+        if (sliderVolume == null)
+        {
+            Canvas[] canvases = GameObject.FindObjectsOfType<Canvas>(true);
+            foreach (var c in canvases)
+            {
+                Slider s = c.GetComponentInChildren<Slider>(true);
+                if (s != null)
+                {
+                    sliderVolume = s;
+                    sliderVolumeGO = s.gameObject;
+                    break;
+                }
+            }
+        }
+
+        if (botaoMusica != null)
+        {
+            botaoMusica.onClick.RemoveAllListeners();
+            botaoMusica.onClick.AddListener(ToggleMusica);
+        }
+        else
+        {
+            Debug.LogWarning("MusicaPersistente: não encontrou BotaoMusica nesta cena.");
+        }
+
+        if (sliderVolume != null)
+        {
+            sliderVolume.minValue = 0f;
+            sliderVolume.maxValue = 1f;
+            sliderVolume.value = audioSource != null ? audioSource.volume : 1f;
+
+            sliderVolume.onValueChanged.RemoveAllListeners();
+            sliderVolume.onValueChanged.AddListener(AtualizaVolume);
+
+            sliderVolumeGO.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("MusicaPersistente: não encontrou Slider nesta cena (ou está desativado).");
+        }
+
+        AtualizaImagemBotao();
+    }
+
     void Update()
     {
-        if (sliderVisivel && Input.GetMouseButtonDown(0))
+        if (!sliderVisivel) return;
+
+        if (Input.GetMouseButtonDown(0))
         {
-            if (!IsPointerOverUIElement(botaoMusica.gameObject) &&
-                !IsPointerOverUIElement(sliderVolumeGO))
+            if (!IsPointerOverAllowedUI())
             {
                 EsconderSlider();
             }
         }
     }
 
+
     private void ToggleMusica()
     {
+        if (audioSource == null) return;
+
         if (musicaAtiva)
         {
-            // Música ativa → pausa
-            volumeAnterior = audioSource.volume; 
+            volumeAnterior = audioSource.volume;
             audioSource.Pause();
             musicaAtiva = false;
 
             MostrarSlider();
-            sliderVolume.value = 0f; 
+            if (sliderVolume != null) sliderVolume.value = 0f;
         }
         else
         {
-            // Música pausada → resume
             audioSource.UnPause();
             musicaAtiva = true;
 
             MostrarSlider();
-            sliderVolume.value = volumeAnterior; 
+            if (sliderVolume != null) sliderVolume.value = Mathf.Max(0.0001f, volumeAnterior);
         }
 
-        AtualizaVolume(sliderVolume.value);
+        AtualizaVolume(sliderVolume != null ? sliderVolume.value : volumeAnterior);
         AtualizaImagemBotao();
     }
 
@@ -112,45 +176,60 @@ public class MusicaPersistente : MonoBehaviour
 
     private void AtualizaVolume(float valor)
     {
-        if (!musicaAtiva && valor > 0f)
-        {
-            audioSource.UnPause();
-            musicaAtiva = true;
-        }
-
         audioSource.volume = valor;
 
-        if (valor <= 0f)
+        if (valor > 0f)
         {
-            if (imagemBotao != null)
-                imagemBotao.sprite = spriteOff;
-
-            if (musicaAtiva)
+            if (!musicaAtiva)
             {
-                audioSource.Pause();
-                musicaAtiva = false;
+                audioSource.UnPause();
+                musicaAtiva = true;
             }
+
+            volumeAnterior = valor;
+
+            if (imagemBotao != null)
+                imagemBotao.sprite = spriteOn;
         }
         else
         {
             if (imagemBotao != null)
-                imagemBotao.sprite = spriteOn;
+                imagemBotao.sprite = spriteOff;
 
-            if (musicaAtiva)
-                volumeAnterior = valor;
+            audioSource.Pause();
+            musicaAtiva = false;
         }
     }
 
+
     private void AtualizaImagemBotao()
     {
-        if (imagemBotao != null)
+        if (imagemBotao != null && audioSource != null)
             imagemBotao.sprite = (musicaAtiva && audioSource.volume > 0f) ? spriteOn : spriteOff;
     }
 
-    private bool IsPointerOverUIElement(GameObject uiObject)
+    private bool IsPointerOverAllowedUI()
     {
-        if (uiObject == null) return false;
-        return EventSystem.current.IsPointerOverGameObject() &&
-               EventSystem.current.currentSelectedGameObject == uiObject;
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+
+        var results = new System.Collections.Generic.List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (var hit in results)
+        {
+            if (botaoMusica != null &&
+                (hit.gameObject == botaoMusica.gameObject ||
+                 hit.gameObject.transform.IsChildOf(botaoMusica.transform)))
+                return true;
+
+            if (sliderVolumeGO != null &&
+                (hit.gameObject == sliderVolumeGO ||
+                 hit.gameObject.transform.IsChildOf(sliderVolumeGO.transform)))
+                return true;
+        }
+
+        return false;
     }
+
 }

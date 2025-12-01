@@ -762,7 +762,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527998293}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 893.98334, y: 524.942, z: -6.1441574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -784,7 +784,6 @@ MonoBehaviour:
   botaoMusica: {fileID: 316030159}
   spriteOn: {fileID: -1871015954481326989, guid: 0f03b4573b39a6148a1bfaa8791d3920, type: 3}
   spriteOff: {fileID: -3866190771304943470, guid: 2469cca39a5a56b45b38b0d3fedb153d, type: 3}
-  imagemBotao: {fileID: 316030160}
   sliderVolumeGO: {fileID: 1317576395}
   sliderVolume: {fileID: 1317576397}
 --- !u!1 &926736594
@@ -820,7 +819,7 @@ RectTransform:
   m_Father: {fileID: 1350068382}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -895,7 +894,7 @@ RectTransform:
   m_Father: {fileID: 1924614474}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -953,7 +952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1317576396
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1216,7 +1215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!225 &1612122254
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1670,7 +1669,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1581294157}
   - {fileID: 75127992}
+  - {fileID: 527998295}
   - {fileID: 1843097854}
   - {fileID: 2012705390}
-  - {fileID: 527998295}
   - {fileID: 1735228150}
