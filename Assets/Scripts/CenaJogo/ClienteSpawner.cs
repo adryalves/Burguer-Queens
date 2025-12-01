@@ -8,7 +8,7 @@ public class ClienteSpawner : MonoBehaviour
     public Transform spawnPoint;
     public Transform[] pontosFila;  // Ponto_1, Ponto_2, Ponto_3, Ponto_4
 
-    private List<Cliente> filaClientes = new List<Cliente>();
+    private List<ClienteMovimento> filaClientes = new List<ClienteMovimento>();
 
     public float tempoMin = 3f;
     public float tempoMax = 7f;
@@ -32,7 +32,7 @@ public class ClienteSpawner : MonoBehaviour
             int index = Random.Range(0, clientesPrefabs.Length);
             GameObject novo = Instantiate(clientesPrefabs[index], spawnPoint.position, Quaternion.identity);
 
-            Cliente cliente = novo.GetComponent<Cliente>();
+            ClienteMovimento cliente = novo.GetComponent<ClienteMovimento>();
 
             // adiciona na fila
             filaClientes.Add(cliente);
@@ -43,7 +43,7 @@ public class ClienteSpawner : MonoBehaviour
     }
 
     // Quando o cliente sair da fila
-    public void ClienteSaiu(Cliente cli)
+    public void ClienteSaiu(ClienteMovimento cli)
     {
         filaClientes.Remove(cli);
 

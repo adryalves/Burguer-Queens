@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Cliente : MonoBehaviour
+public class ClienteMovimento : MonoBehaviour
 {
     public float velocidade = 10f;
 
