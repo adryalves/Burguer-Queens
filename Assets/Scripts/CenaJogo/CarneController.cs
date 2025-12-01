@@ -53,7 +53,6 @@ namespace Assets.Scripts.CenaJogo
         {
             drag = GetComponent<ArrastarItensController>();
             sr = GetComponent<SpriteRenderer>();
-
             sr.sprite = spriteCrua;
 
             if (imagemTimer != null)
@@ -77,7 +76,6 @@ namespace Assets.Scripts.CenaJogo
                         transform.position = frigideiraTransform.position + offsetFrigideira;
 
                         drag.enabled = false;
-
                         ReiniciarTimer();
 
                         if (rotinaCozinhar != null) StopCoroutine(rotinaCozinhar);
@@ -192,7 +190,6 @@ namespace Assets.Scripts.CenaJogo
             {
                 t += Time.deltaTime;
                 float progresso = t / tempoCozimento;
-
                 imagemTimer.fillAmount = progresso;
 
                 yield return null;
@@ -208,7 +205,6 @@ namespace Assets.Scripts.CenaJogo
         private IEnumerator Queimar()
         {
             float t = 0f;
-
             imagemTimer.fillAmount = 0f;
 
             while (t < tempoAteQueimar)
@@ -251,6 +247,11 @@ namespace Assets.Scripts.CenaJogo
             return estadoAtual == EstadoCarne.Crua ||
                    estadoAtual == EstadoCarne.Assada ||
                    estadoAtual == EstadoCarne.Queimada;
+        }
+
+        public static void ResetFrigideiraOcupada()
+        {
+            frigideiraOcupada = false;
         }
     }
 }
