@@ -36,41 +36,44 @@ public class PratoController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         AreaDetector area = col.GetComponent<AreaDetector>();
+        if (area == null || area.areaName != "Bandeja")
+            return;
 
-        if (area != null && area.areaName == "Bandeja")
+        
+        var arrastar = GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
+        if (arrastar == null || !arrastar.EstaSendoArrastado)
         {
             
-            BandejaController bc = col.GetComponentInParent<BandejaController>();
-
-            if (bc != null)
-            {
-                
-                if (bc.pratoAtual != null && bc.pratoAtual != this)
-                {
-                    Destroy(this.gameObject);
-                    return;
-                }
-
-                bandejaController = bc;
-                bandejaController.pratoAtual = this;
-                bandejaTransform = bc.transform;
-            }
-            else
-            {
-                
-                bandejaTransform = col.transform;
-            }
-
-            estaNaBandeja = true;
-
-            
-            transform.position = bandejaTransform.position;
-
-            
-            var drag = GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
-            if (drag != null) Destroy(drag);
+            return;
         }
+
+        BandejaController bc = col.GetComponentInParent<BandejaController>();
+
+        if (bc != null)
+        {
+            if (bc.pratoAtual != null && bc.pratoAtual != this)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+
+            bandejaController = bc;
+            bandejaController.pratoAtual = this;
+            bandejaTransform = bc.transform;
+        }
+        else
+        {
+            bandejaTransform = col.transform;
+        }
+
+        estaNaBandeja = true;
+
+        transform.position = bandejaTransform.position;
+
+        var drag = GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
+        if (drag != null) Destroy(drag);
     }
+
 
     void OnTriggerExit2D(Collider2D col)
     {
@@ -156,10 +159,10 @@ public class PratoController : MonoBehaviour
         return sb.ToString();
     }
 
-    // Converte o nome do GameObject do ingrediente para a letra usada no pedido
+   
     private string ConverterNomeParaCodigo(string nome)
     {
-        // Ajuste aqui os nomes para bater com os seus prefabs reais
+        
         switch (nome)
         {
             case "PaoBase":
@@ -173,10 +176,10 @@ public class PratoController : MonoBehaviour
 
             case "PaoCima":
             case "Pao":
-                return "P"; // pão de cima
+                return "P"; 
 
             default:
-                return "?"; // algo inesperado, só para não quebrar
+                return "?"; 
         }
     }
 }

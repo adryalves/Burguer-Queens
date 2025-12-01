@@ -12,6 +12,8 @@ namespace Assets.Scripts.CenaJogo
         private SpriteRenderer sr;
         private int sortingOrderOriginal;
 
+        public bool EstaSendoArrastado => dragging;
+
         void Start()
         {
             startPosition = transform.position;
