@@ -3,8 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class Historia1 : MonoBehaviour
 {
-    public void LoadScene()
+    void Update()
     {
-        SceneManager.LoadScene("CenaHistoria2");
+        if (Input.GetMouseButtonDown(0))
+        {
+            SceneManager.LoadScene("CenaHistoria2");
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            SceneManager.LoadScene("CenaHistoria2");
+        }
     }
 }

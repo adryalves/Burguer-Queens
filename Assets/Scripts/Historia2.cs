@@ -3,8 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class Historia2 : MonoBehaviour
 {
-    public void LoadScene()
+    void Update()
     {
-        SceneManager.LoadScene("CenaMenu");
+        if (Input.GetMouseButtonDown(0))
+        {
+            SceneManager.LoadScene("CenaMenu");
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            SceneManager.LoadScene("CenaMenu");
+        }
     }
 }
