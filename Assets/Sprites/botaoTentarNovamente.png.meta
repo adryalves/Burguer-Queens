@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      botaoTentarNovamente_0: 771721852635708303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
