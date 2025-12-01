@@ -180,7 +180,7 @@ namespace Assets.Scripts.CenaJogo
 
                 Debug.Log("[BANDEJA] Saí da área do cliente");
             }
-            else if (area.areaName == "Lixeira")not beinot d
+            else if (area.areaName == "Lixeira")
             {
                 sobreLixeira = false;
             }
