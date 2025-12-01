@@ -1145,7 +1145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -857.88354, y: 453.9369}
+  m_AnchoredPosition: {x: -865, y: 452}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &352158019
@@ -1655,7 +1655,6 @@ MonoBehaviour:
   botaoMusica: {fileID: 1961506626}
   spriteOn: {fileID: -1871015954481326989, guid: 0f03b4573b39a6148a1bfaa8791d3920, type: 3}
   spriteOff: {fileID: -3866190771304943470, guid: 2469cca39a5a56b45b38b0d3fedb153d, type: 3}
-  imagemBotao: {fileID: 1961506627}
   sliderVolumeGO: {fileID: 1002849129}
   sliderVolume: {fileID: 1002849130}
 --- !u!1 &535195840
@@ -3634,6 +3633,7 @@ MonoBehaviour:
   tempoAteQueimar: 4
   imagemTimer: {fileID: 1936009669}
   corCozinhando: {r: 0, g: 1, b: 0, a: 1}
+  corMeio: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   corQueimando: {r: 1, g: 0, b: 0, a: 1}
   offsetFrigideira: {x: 0, y: 0.08, z: 0}
 --- !u!1 &1397735956
@@ -4826,7 +4826,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -944.5912, y: 453.9369}
+  m_AnchoredPosition: {x: -947, y: 452}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1961506626
