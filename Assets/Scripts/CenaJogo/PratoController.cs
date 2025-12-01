@@ -14,21 +14,19 @@ public class PratoController : MonoBehaviour
 
     [SerializeField] private int baseOrderInLayer = 1000;
 
+    // 🔹 NOVO: quem gerou este prato (duplicador da gaveta)
+    [HideInInspector] public DuplicarIngredientesController spawnerOrigem;
 
     public void OnDragReleased()
     {
         if (estaNaBandeja && bandejaTransform != null)
         {
             transform.SetParent(bandejaTransform);
-
-           
             transform.localPosition = offsetNaBandeja;
-
-           
         }
         else
         {
-            
+            // se soltar fora da bandeja, o prato é destruído
             Destroy(this.gameObject);
         }
     }
@@ -39,12 +37,10 @@ public class PratoController : MonoBehaviour
 
         if (area != null && area.areaName == "Bandeja")
         {
-            
             BandejaController bc = col.GetComponentInParent<BandejaController>();
 
             if (bc != null)
             {
-                
                 if (bc.pratoAtual != null && bc.pratoAtual != this)
                 {
                     Destroy(this.gameObject);
@@ -57,16 +53,12 @@ public class PratoController : MonoBehaviour
             }
             else
             {
-                
                 bandejaTransform = col.transform;
             }
 
             estaNaBandeja = true;
-
-            
             transform.position = bandejaTransform.position;
 
-            
             var drag = GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
             if (drag != null) Destroy(drag);
         }
@@ -89,10 +81,8 @@ public class PratoController : MonoBehaviour
         }
     }
 
-    
     public void ColocarIngredienteNoPrato(GameObject ingrediente)
     {
-        
         Transform alvo = transform.Find("IngredientesEmpilhados");
         if (alvo == null)
         {
@@ -100,30 +90,23 @@ public class PratoController : MonoBehaviour
             alvo = transform;
         }
 
-        
         ingrediente.transform.SetParent(alvo, worldPositionStays: false);
 
-        
         int index = alvo.childCount - 1;
 
-
-        float offsetY = 2.0f; 
-      
+        float offsetY = 2.0f;
 
         ingrediente.transform.localPosition = new Vector3(0f, 0.5f + index * offsetY, -1f);
 
         SpriteRenderer sr = ingrediente.GetComponent<SpriteRenderer>();
         if (sr != null)
         {
-            
             sr.sortingOrder = baseOrderInLayer + index;
         }
-
 
         var drag = ingrediente.GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
         if (drag != null) Destroy(drag);
 
-       
         var col2D = ingrediente.GetComponent<Collider2D>();
         if (col2D != null) col2D.enabled = false;
     }
@@ -133,7 +116,6 @@ public class PratoController : MonoBehaviour
         Transform alvo = transform.Find("IngredientesEmpilhados");
         if (alvo == null)
         {
-            
             alvo = transform;
         }
 
@@ -156,28 +138,30 @@ public class PratoController : MonoBehaviour
         return sb.ToString();
     }
 
-    // Converte o nome do GameObject do ingrediente para a letra usada no pedido
     private string ConverterNomeParaCodigo(string nome)
     {
-        // Ajuste aqui os nomes para bater com os seus prefabs reais
         switch (nome)
         {
             case "PaoBase":
-                return "B"; 
-
+                return "B";
             case "Carne":
                 return "C";
-
             case "Queijo":
                 return "Q";
-
             case "PaoCima":
             case "Pao":
-                return "P"; // pão de cima
-
+                return "P";
             default:
-                return "?"; // algo inesperado, só para não quebrar
+                return "?";
+        }
+    }
+
+    // 🔹 NOVO: qualquer destruição do prato libera o duplicador
+    private void OnDestroy()
+    {
+        if (spawnerOrigem != null)
+        {
+            spawnerOrigem.NotificarItemSaiu(this.gameObject);
         }
     }
 }
-
