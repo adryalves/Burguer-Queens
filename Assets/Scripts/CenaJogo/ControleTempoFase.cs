@@ -1,54 +1,54 @@
-using Assets.Scripts.CenaJogo;
-using UnityEngine;
-using TMPro;
+// using Assets.Scripts.CenaJogo;
+// using UnityEngine;
+// using TMPro;
 
-public class ControleTempoFase : MonoBehaviour
-{
-    public float tempoTotal = 60f;
-    private float tempoRestante;
-    private bool faseEncerrada = false;
+// public class ControleTempoFase : MonoBehaviour
+// {
+//     public float tempoTotal = 60f;
+//     private float tempoRestante;
+//     private bool faseEncerrada = false;
 
-    public TextMeshProUGUI textoRelogio;
+//     public TextMeshProUGUI textoRelogio;
 
-    void Start()
-    {
-        tempoRestante = tempoTotal;
-    }
+//     void Start()
+//     {
+//         tempoRestante = tempoTotal;
+//     }
 
-    void Update()
-    {
-        if (faseEncerrada) return;
+//     void Update()
+//     {
+//         if (faseEncerrada) return;
 
-        tempoRestante -= Time.deltaTime;
+//         tempoRestante -= Time.deltaTime;
 
-        if (tempoRestante <= 0f)
-        {
-            tempoRestante = 0f;
-            EncerrarFase();
-        }
+//         if (tempoRestante <= 0f)
+//         {
+//             tempoRestante = 0f;
+//             EncerrarFase();
+//         }
 
-        AtualizarRelogio();
-    }
+//         AtualizarRelogio();
+//     }
 
-    void AtualizarRelogio()
-    {
-        int minutos = Mathf.FloorToInt(tempoRestante / 60);
-        int segundos = Mathf.FloorToInt(tempoRestante % 60);
-        textoRelogio.text = $"{minutos:00}:{segundos:00}";
-    }
+//     void AtualizarRelogio()
+//     {
+//         int minutos = Mathf.FloorToInt(tempoRestante / 60);
+//         int segundos = Mathf.FloorToInt(tempoRestante % 60);
+//         textoRelogio.text = $"{minutos:00}:{segundos:00}";
+//     }
 
-    void EncerrarFase()
-    {
-        faseEncerrada = true;
+//     void EncerrarFase()
+//     {
+//         faseEncerrada = true;
 
-        Time.timeScale = 0f;
+//         Time.timeScale = 0f;
 
-        ArrastarItensController[] itens = FindObjectsOfType<ArrastarItensController>();
-        foreach (var item in itens)
-        {
-            item.AtivarInteracao(false);
-        }
+//         ArrastarItensController[] itens = FindObjectsOfType<ArrastarItensController>();
+//         foreach (var item in itens)
+//         {
+//             item.AtivarInteracao(false);
+//         }
 
-        Debug.Log("Fase Encerrada! Interações bloqueadas.");
-    }
-}
+//         Debug.Log("Fase Encerrada! Interações bloqueadas.");
+//     }
+// }

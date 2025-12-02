@@ -1,18 +1,26 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Menu;
+using UnityEngine;
 
 namespace Assets.Scripts.CenaJogo
 {
-    public class BandejaController : MonoBehaviour
+
+    public class BandejaController : MonoBehaviour, IJogadorPersistencia
     {
-        
+
         public PratoController pratoAtual;
 
-       
+
         [HideInInspector] public CopoSucoController copoNaBandeja;
+
+
+        [HideInInspector] public ClienteController clienteAtual;
 
         private Vector3 posicaoInicial;
         private bool sobreCliente = false;
         private bool sobreLixeira = false;
+
+
+        public int moedas;
 
         void Awake()
         {
@@ -21,7 +29,7 @@ namespace Assets.Scripts.CenaJogo
 
         void Update()
         {
-         
+
             if (pratoAtual != null)
             {
                 pratoAtual.transform.position =
@@ -32,14 +40,14 @@ namespace Assets.Scripts.CenaJogo
 
         public void OnDragReleased()
         {
-       
+
             bool temPratoComLanche =
                 pratoAtual != null && pratoAtual.TemAlgumIngredienteNoPrato();
 
-           
+
             bool temCopo = (copoNaBandeja != null);
 
-     
+
             if (!temPratoComLanche && !temCopo)
             {
                 VoltarParaPosicaoInicial();
@@ -49,17 +57,46 @@ namespace Assets.Scripts.CenaJogo
 
             if (sobreCliente && temPratoComLanche)
             {
-               
+
+                if (clienteAtual == null)
+                {
+                    Debug.LogWarning("[BANDEJA] Tentou entregar para cliente, mas clienteAtual == null");
+                    VoltarParaPosicaoInicial();
+                    return;
+                }
+
+                string codigoEntregue = pratoAtual != null
+                    ? pratoAtual.GerarCodigoPorNome()
+                    : string.Empty;
+
+                bool sucoEntregue = temCopo;
+
+                Debug.Log("[BANDEJA] Entregando para " + clienteAtual.name);
+
+                bool pedidoPerfeito;
+                moedas = clienteAtual.RegistrarEntrega(sucoEntregue, codigoEntregue, out pedidoPerfeito);
+
+
+                if (JogadorPersistenciaManager.Instance != null)
+                {
+                    JogadorPersistenciaManager.Instance.SavePlayerData();
+                }
+
+
+                Destroy(clienteAtual.gameObject);
+                clienteAtual = null;
+
+                // Destroi o prato
                 if (pratoAtual != null)
                 {
                     Destroy(pratoAtual.gameObject);
                     pratoAtual = null;
                 }
 
-               
+                // Reseta o copo (volta para origem vazio)
                 if (copoNaBandeja != null)
                 {
-                    copoNaBandeja.ResetarCopoParaOrigem();
+                    copoNaBandeja.VoltarParaOrigemVazio();
                     copoNaBandeja = null;
                 }
 
@@ -67,7 +104,9 @@ namespace Assets.Scripts.CenaJogo
                 return;
             }
 
-       
+            // =========================
+            // JOGAR FORA NA LIXEIRA
+            // =========================
             if (sobreLixeira && (temPratoComLanche || temCopo))
             {
                 if (pratoAtual != null)
@@ -86,7 +125,7 @@ namespace Assets.Scripts.CenaJogo
                 return;
             }
 
-        
+            // Caso não esteja nem em cliente nem em lixeira, apenas volta
             VoltarParaPosicaoInicial();
         }
 
@@ -100,17 +139,27 @@ namespace Assets.Scripts.CenaJogo
                 transform.position = posicaoInicial;
         }
 
-       
+
         void OnTriggerEnter2D(Collider2D col)
         {
             var area = col.GetComponent<AreaDetector>();
             if (area == null) return;
 
             if (area.areaName == "Cliente")
+            {
                 sobreCliente = true;
+
+
+                clienteAtual = col.GetComponentInParent<ClienteController>();
+
+                Debug.Log("[BANDEJA] Entrei na área do cliente, clienteAtual = " + clienteAtual);
+            }
             else if (area.areaName == "Lixeira")
+            {
                 sobreLixeira = true;
+            }
         }
+
 
         void OnTriggerExit2D(Collider2D col)
         {
@@ -118,15 +167,41 @@ namespace Assets.Scripts.CenaJogo
             if (area == null) return;
 
             if (area.areaName == "Cliente")
+            {
                 sobreCliente = false;
+
+
+                var cli = col.GetComponentInParent<ClienteController>();
+                if (cli != null && cli == clienteAtual)
+                {
+                    clienteAtual = null;
+                }
+
+                Debug.Log("[BANDEJA] Saí da área do cliente");
+            }
             else if (area.areaName == "Lixeira")
+            {
                 sobreLixeira = false;
+            }
         }
 
-       
+        // =========================
+        // Persistência de jogador
+        // =========================
         public void RegistrarCopoNaBandeja(CopoSucoController copo)
         {
             copoNaBandeja = copo;
+        }
+
+        public void LoadData(DadosJogador data)
+        {
+            // Nada para carregar aqui por enquanto
+        }
+
+        public void SaveData(DadosJogador data)
+        {
+
+            data.moedas += this.moedas;
         }
     }
 }
