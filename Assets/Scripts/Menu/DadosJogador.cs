@@ -12,5 +12,9 @@ public class DadosJogador
         0, 0, 0, 0
     };
 
+    public List<int> moedaoPorFase = new List<int>()
+    {
+        0, 0, 0, 0
+    };
 
 }

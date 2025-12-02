@@ -1,6 +1,7 @@
-using Assets.Scripts.CenaJogo;
 using UnityEngine;
 using TMPro;
+using Assets.Scripts.CenaJogo; // NECESSÁRIO para ArrastarItensController
+using Assets.Scripts.Menu;
 
 public class ControleTempoFase : MonoBehaviour
 {
@@ -10,9 +11,23 @@ public class ControleTempoFase : MonoBehaviour
 
     public TextMeshProUGUI textoRelogio;
 
+    [Header("Pop-up Final")]
+    public GameObject popUpFinal;         // Janela do pop-up final
+    public GameObject ganhouObj;          // Imagem de check
+    public GameObject perdeuObj;          // Imagem de X
+
+    [Header("Requisitos da Fase")]
+    public MostrarRequisitoDeFase popupRequisitos;
+    public int numeroDaFase = 1;          // Fase atual (configure no Inspector)
+    public int moedasDoJogador = 0;       // Número de moedas coletadas nesta fase
+
     void Start()
     {
         tempoRestante = tempoTotal;
+
+        if (popUpFinal != null) popUpFinal.SetActive(false);
+        if (ganhouObj != null) ganhouObj.SetActive(false);
+        if (perdeuObj != null) perdeuObj.SetActive(false);
     }
 
     void Update()
@@ -37,18 +52,74 @@ public class ControleTempoFase : MonoBehaviour
         textoRelogio.text = $"{minutos:00}:{segundos:00}";
     }
 
-    void EncerrarFase()
+   void EncerrarFase()
+{
+    faseEncerrada = true;
+
+    Time.timeScale = 0f;
+
+    var itens = FindObjectsByType<ArrastarItensController>(FindObjectsSortMode.None);
+    foreach (var item in itens)
+        item.AtivarInteracao(false);
+
+    // Ativa o pop-up final primeiro
+    popUpFinal.SetActive(true);
+
+    // Garante que as imagens começam escondidas
+    ganhouObj.SetActive(false);
+    perdeuObj.SetActive(false);
+
+    // Calcula requisito
+    // Se não houver moedas coletadas em runtime, tenta ler do save
+    if (moedasDoJogador == 0 && JogadorPersistenciaManager.Instance != null)
     {
-        faseEncerrada = true;
-
-        Time.timeScale = 0f;
-
-        ArrastarItensController[] itens = FindObjectsOfType<ArrastarItensController>();
-        foreach (var item in itens)
+        int salvas = JogadorPersistenciaManager.Instance.GetMoedasDaFase(numeroDaFase);
+        if (salvas > 0)
         {
-            item.AtivarInteracao(false);
+            moedasDoJogador = salvas;
+            Debug.Log($"ℹ️ Usando moedas salvas da fase {numeroDaFase}: {moedasDoJogador}");
         }
-
-        Debug.Log("Fase Encerrada! Interações bloqueadas.");
     }
+
+    int requisitoDaFase = popupRequisitos.requisitos.GetRequisitoDaFase(numeroDaFase);
+    popupRequisitos.MostrarPopup(numeroDaFase);
+
+    bool ganhou = moedasDoJogador >= requisitoDaFase;
+
+    // Agora mostra o correto
+    if (ganhou)
+    {
+        ganhouObj.SetActive(true);
+    }
+    else
+    {
+        perdeuObj.SetActive(true);
+    }
+
+    // Salva as moedas no MenuFaseUI
+    MenuFaseUI menuUI = FindObjectOfType<MenuFaseUI>();
+    if (menuUI != null)
+    {
+        // índice da fase (numeroDaFase - 1 porque começa de 0)
+        menuUI.AdicionarMoedas(numeroDaFase - 1, moedasDoJogador);
+        Debug.Log($"✅ Moedas adicionadas à fase {numeroDaFase}: {moedasDoJogador}");
+    }
+    else
+    {
+        Debug.LogWarning("⚠️ MenuFaseUI não encontrado na cena!");
+    }
+
+    // Salva os dados
+    if (JogadorPersistenciaManager.Instance != null)
+    {
+        JogadorPersistenciaManager.Instance.SavePlayerData();
+        Debug.Log("💾 Dados salvos!");
+    }
+    else
+    {
+        Debug.LogWarning("⚠️ JogadorPersistenciaManager não encontrado!");
+    }
+
+    Debug.Log(ganhou ? "GANHOU a fase!" : "PERDEU a fase!");
+}
 }

@@ -13,10 +13,17 @@ namespace Assets.Scripts.CenaJogo
         private Vector3 posicaoInicial;
         private bool sobreCliente = false;
         private bool sobreLixeira = false;
+        
+        private ControleTempoFase controleTempoFase;
 
         void Awake()
         {
             posicaoInicial = transform.position;
+            
+            // Encontra o ControleTempoFase na cena
+            controleTempoFase = FindObjectOfType<ControleTempoFase>();
+            if (controleTempoFase == null)
+                Debug.LogWarning("⚠️ ControleTempoFase não encontrado na cena!");
         }
 
         void Update()
@@ -52,6 +59,13 @@ namespace Assets.Scripts.CenaJogo
                
                 if (pratoAtual != null)
                 {
+                    // Adiciona 1 moeda por prato entregue
+                    if (controleTempoFase != null)
+                    {
+                        controleTempoFase.moedasDoJogador += 1;
+                        Debug.Log($" +1 moeda! Total: {controleTempoFase.moedasDoJogador}");
+                    }
+                    
                     Destroy(pratoAtual.gameObject);
                     pratoAtual = null;
                 }
