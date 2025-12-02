@@ -1394,6 +1394,8 @@ MonoBehaviour:
   spriteMaquinaProcessando: {fileID: -634458963855019979, guid: 7772b03eb7fd1a44294c18d7cbb155e3, type: 3}
   maquinaRenderer: {fileID: 343562007}
   copoDestino: {fileID: 1829146463}
+  imagemTimer: {fileID: 1960427170}
+  corTimer: {r: 0, g: 1, b: 0, a: 1}
   tempoProcessar: 3
 --- !u!114 &343562010
 MonoBehaviour:
