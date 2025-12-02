@@ -8,7 +8,7 @@ public class ClienteSpawner : MonoBehaviour
     public Transform spawnPoint;
 
     public int maxClientes = 3;
-    public float delaySpawn = 3f; // tempo antes do novo cliente aparecer
+    public float delaySpawn = 3f;  
 
     private int clientesVivos = 0;
     private bool esperandoNovo = false;
@@ -18,7 +18,6 @@ public class ClienteSpawner : MonoBehaviour
         SpawnCliente();
     }
 
-    // Chamado pelo cliente quando é destruído
     public void ClienteFoiDestruido()
     {
         clientesVivos--;
@@ -43,7 +42,7 @@ public class ClienteSpawner : MonoBehaviour
         GameObject novo = Instantiate(clientePrefab, spawnPoint.position, Quaternion.identity);
 
         ClienteController cliente = novo.GetComponent<ClienteController>();
-        cliente.spawnerOrigem = this;  // ESSENCIAL
+        cliente.spawnerOrigem = this;
 
         clientesVivos++;
     }

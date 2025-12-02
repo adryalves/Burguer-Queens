@@ -45,7 +45,6 @@ namespace Assets.Scripts.CenaJogo
                 }
             }
 
-            // 2ª passada: ingredientes corretos mas em posição diferente
             for (int i = 0; i < nEntregue; i++)
             {
                 if (usadoEntregue[i])

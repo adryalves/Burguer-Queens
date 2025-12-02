@@ -189,7 +189,6 @@ namespace Assets.Scripts.CenaJogo
 
         public void LoadData(DadosJogador data)
         {
-            // Nada para carregar aqui por enquanto
         }
 
         public void SaveData(DadosJogador data)

@@ -5,31 +5,25 @@ namespace Assets.Scripts.CenaJogo
     public class ClienteController : MonoBehaviour
     {
         [Header("Referências do pedido")]
-        public SpriteRenderer spritePedidoLanche;   // balão com imagem do lanche
-        public SpriteRenderer spritePedidoSuco;     // ícone do suco (ligado/desligado)
-
+        public SpriteRenderer spritePedidoLanche;    
+        public SpriteRenderer spritePedidoSuco;    
         [Header("Catálogo de pedidos possíveis")]
-        public Sprite[] spritesPedidosPossiveis;    // arrasta aqui suas imagens de pedidos
+        public Sprite[] spritesPedidosPossiveis;   
         [Range(0f, 1f)]
-        public float chanceQuerSuco = 0.5f;         // 50% das vezes ele quer suco
+        public float chanceQuerSuco = 0.5f;       
 
         [Header("Configuração de pontuação")]
         public int pontosSucoCorreto = 5;
 
         [Header("Debug")]
-        public string codigoPedidoLanche;   // preenchido em runtime
+        public string codigoPedidoLanche; 
         public bool querSuco;
 
         [HideInInspector] public ClienteSpawner spawnerOrigem;
 
         void Awake()
         {
-            // 1) Primeiro gera um pedido aleatório para este cliente
             GerarPedidoAleatorio();
-
-            // 2) Depois lê as infos para preencher as variáveis usadas na pontuação
-
-            // Código do lanche = nome do sprite do pedido
             if (spritePedidoLanche != null && spritePedidoLanche.sprite != null)
             {
                 string nomeOriginal = spritePedidoLanche.sprite.name;
@@ -40,7 +34,6 @@ namespace Assets.Scripts.CenaJogo
                 codigoPedidoLanche = string.Empty;
             }
 
-            // Quer suco = se o sprite de suco está habilitado
             if (spritePedidoSuco != null)
             {
                 querSuco = spritePedidoSuco.enabled;
@@ -51,10 +44,8 @@ namespace Assets.Scripts.CenaJogo
             }
         }
 
-        // Gera o pedido aleatório (lanche + se quer suco)
         private void GerarPedidoAleatorio()
         {
-            // Escolhe aleatoriamente um sprite de lanche
             if (spritesPedidosPossiveis != null &&
                 spritesPedidosPossiveis.Length > 0 &&
                 spritePedidoLanche != null)
@@ -63,10 +54,9 @@ namespace Assets.Scripts.CenaJogo
                 Sprite escolhido = spritesPedidosPossiveis[idx];
 
                 spritePedidoLanche.sprite = escolhido;
-                spritePedidoLanche.enabled = true; // garante que o balão aparece
+                spritePedidoLanche.enabled = true; 
             }
 
-            // Decide aleatoriamente se ele quer suco
             bool quer = UnityEngine.Random.value < chanceQuerSuco;
 
             if (spritePedidoSuco != null)
@@ -74,8 +64,6 @@ namespace Assets.Scripts.CenaJogo
                 spritePedidoSuco.enabled = quer;
             }
         }
-
-        // Registra a entrega da bandeja para este cliente e retorna a pontuação
 
         void OnDestroy()
         {
@@ -87,7 +75,6 @@ namespace Assets.Scripts.CenaJogo
 
         public int RegistrarEntrega(bool sucoEntregue, string codigoLancheEntregue, out bool pedidoPerfeito)
         {
-            // Pontuação do lanche (ingredientes)
             int acertosExatos;
             int acertosForaDePosicao;
 
@@ -98,7 +85,6 @@ namespace Assets.Scripts.CenaJogo
                 out acertosForaDePosicao
             );
 
-            // Pontuação do suco
             int pontosSuco = 0;
             bool sucoCorreto = true;
 
@@ -111,15 +97,14 @@ namespace Assets.Scripts.CenaJogo
                 }
                 else
                 {
-                    sucoCorreto = false; // queria suco mas não recebeu
+                    sucoCorreto = false; 
                 }
             }
             else
             {
-                // Cliente não queria suco
                 if (sucoEntregue)
                 {
-                    sucoCorreto = false; // entregou suco sem precisar
+                    sucoCorreto = false; 
                 }
                 else
                 {
@@ -129,7 +114,6 @@ namespace Assets.Scripts.CenaJogo
 
             int pontosTotais = pontosLanche + pontosSuco;
 
-            // Pedido perfeito = lanche exatamente igual + suco correto
             bool lanchePerfeito = (codigoPedidoLanche == codigoLancheEntregue);
             pedidoPerfeito = lanchePerfeito && sucoCorreto;
 

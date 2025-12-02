@@ -162,21 +162,14 @@ public class PratoController : MonoBehaviour
 
     private string ConverterNomeParaCodigo(string nome)
     {
-        // Normaliza o nome removendo sufixos (Clone), espaços, números, etc.
         if (string.IsNullOrEmpty(nome))
             return "?";
 
-        // Remove "(Clone)" repetidos
         nome = nome.Replace("(Clone)", "");
-
-        // Remove possíveis espaços em branco e deixa tudo consistente
         nome = nome.Trim();
 
-        // Agora, como existem ingredientes com nomes maiores, vamos checar por prefixo
-        // Ex: "Pao", "PaoBase", "PaoCima", "PaoCloneClone" → todos começam com "Pao"
-
         if (nome.StartsWith("PaoBase", System.StringComparison.OrdinalIgnoreCase))
-            return "B"; // Base do pão recebe B
+            return "B"; 
 
         if (nome.StartsWith("Carne", System.StringComparison.OrdinalIgnoreCase))
             return "C";
