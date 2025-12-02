@@ -205,6 +205,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spritePedidoLanche: {fileID: 0}
   spritePedidoSuco: {fileID: 0}
+  spritesPedidosPossiveis:
+  - {fileID: 2589373486564145493, guid: 412670c976b20214284cebd8270e1bbb, type: 3}
+  - {fileID: 4253610529057984270, guid: 0c97009080c49fd4f92841183eea8f2d, type: 3}
+  - {fileID: -9026597583161791711, guid: 037735fa875177340bda7783a7eca32f, type: 3}
+  - {fileID: -2298856270563760779, guid: 10b7a39398e434749a3ecc86d2ad0f0f, type: 3}
+  - {fileID: 8405954161688818289, guid: db4614f28336c894a92283cc119d83a1, type: 3}
+  - {fileID: 1284910248991573894, guid: efe8af57e20486d4099039b22bf4dedc, type: 3}
+  - {fileID: -7162299622884838422, guid: 1ad5306a404c0594c8556a77f91eb097, type: 3}
+  - {fileID: -8059334560543123049, guid: 2cfd12637e0fd9342a95fc20a06194f9, type: 3}
+  - {fileID: -15145850117584049, guid: b03f4da4b7a3f6747b90e0e2f42415b4, type: 3}
+  chanceQuerSuco: 0.5
   pontosSucoCorreto: 5
   codigoPedidoLanche: 
   querSuco: 0
@@ -243,7 +254,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.31198406}
+  m_Offset: {x: -3.9915314, y: 0.31198406}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -253,5 +264,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 27.786263, y: 22.88997}
+  m_Size: {x: 19.8032, y: 22.88997}
   m_EdgeRadius: 0
