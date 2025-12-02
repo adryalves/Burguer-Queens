@@ -1,13 +1,17 @@
 using UnityEngine;
-using Assets.Scripts.CenaJogo;
 
 namespace Assets.Scripts.CenaJogo
 {
     public class ClienteController : MonoBehaviour
     {
         [Header("Referências do pedido")]
-        public SpriteRenderer spritePedidoLanche;   // sprite cujo nome é o código do pedido, ex: "BCQP"
-        public SpriteRenderer spritePedidoSuco;     // sprite do suco (enabled = quer suco)
+        public SpriteRenderer spritePedidoLanche;   // balão com imagem do lanche
+        public SpriteRenderer spritePedidoSuco;     // ícone do suco (ligado/desligado)
+
+        [Header("Catálogo de pedidos possíveis")]
+        public Sprite[] spritesPedidosPossiveis;    // arrasta aqui suas imagens de pedidos
+        [Range(0f, 1f)]
+        public float chanceQuerSuco = 0.5f;         // 50% das vezes ele quer suco
 
         [Header("Configuração de pontuação")]
         public int pontosSucoCorreto = 5;
@@ -18,21 +22,57 @@ namespace Assets.Scripts.CenaJogo
 
         [HideInInspector] public ClienteSpawner spawnerOrigem;
 
-
         void Awake()
         {
-            // Pega o código do lanche baseado no nome da sprite
+            // 1) Primeiro gera um pedido aleatório para este cliente
+            GerarPedidoAleatorio();
+
+            // 2) Depois lê as infos para preencher as variáveis usadas na pontuação
+
+            // Código do lanche = nome do sprite do pedido
             if (spritePedidoLanche != null && spritePedidoLanche.sprite != null)
             {
-                codigoPedidoLanche = spritePedidoLanche.sprite.name;
+                string nomeOriginal = spritePedidoLanche.sprite.name;
+                codigoPedidoLanche = nomeOriginal == null ? nomeOriginal : nomeOriginal.Replace("_0", "");
             }
             else
             {
                 codigoPedidoLanche = string.Empty;
             }
 
-            // Decide se o cliente quer suco
-            querSuco = spritePedidoSuco != null && spritePedidoSuco.enabled;
+            // Quer suco = se o sprite de suco está habilitado
+            if (spritePedidoSuco != null)
+            {
+                querSuco = spritePedidoSuco.enabled;
+            }
+            else
+            {
+                querSuco = false;
+            }
+        }
+
+        // Gera o pedido aleatório (lanche + se quer suco)
+        private void GerarPedidoAleatorio()
+        {
+            // Escolhe aleatoriamente um sprite de lanche
+            if (spritesPedidosPossiveis != null &&
+                spritesPedidosPossiveis.Length > 0 &&
+                spritePedidoLanche != null)
+            {
+                int idx = UnityEngine.Random.Range(0, spritesPedidosPossiveis.Length);
+                Sprite escolhido = spritesPedidosPossiveis[idx];
+
+                spritePedidoLanche.sprite = escolhido;
+                spritePedidoLanche.enabled = true; // garante que o balão aparece
+            }
+
+            // Decide aleatoriamente se ele quer suco
+            bool quer = UnityEngine.Random.value < chanceQuerSuco;
+
+            if (spritePedidoSuco != null)
+            {
+                spritePedidoSuco.enabled = quer;
+            }
         }
 
         // Registra a entrega da bandeja para este cliente e retorna a pontuação

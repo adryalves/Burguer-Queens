@@ -21,14 +21,14 @@ public class PratoController : MonoBehaviour
         {
             transform.SetParent(bandejaTransform);
 
-           
+
             transform.localPosition = offsetNaBandeja;
 
-           
+
         }
         else
         {
-            
+
             Destroy(this.gameObject);
         }
     }
@@ -39,11 +39,11 @@ public class PratoController : MonoBehaviour
         if (area == null || area.areaName != "Bandeja")
             return;
 
-        
+
         var arrastar = GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
         if (arrastar == null || !arrastar.EstaSendoArrastado)
         {
-            
+
             return;
         }
 
@@ -92,10 +92,10 @@ public class PratoController : MonoBehaviour
         }
     }
 
-    
+
     public void ColocarIngredienteNoPrato(GameObject ingrediente)
     {
-        
+
         Transform alvo = transform.Find("IngredientesEmpilhados");
         if (alvo == null)
         {
@@ -103,22 +103,22 @@ public class PratoController : MonoBehaviour
             alvo = transform;
         }
 
-        
+
         ingrediente.transform.SetParent(alvo, worldPositionStays: false);
 
-        
+
         int index = alvo.childCount - 1;
 
 
-        float offsetY = 2.0f; 
-      
+        float offsetY = 2.0f;
+
 
         ingrediente.transform.localPosition = new Vector3(0f, 0.5f + index * offsetY, -1f);
 
         SpriteRenderer sr = ingrediente.GetComponent<SpriteRenderer>();
         if (sr != null)
         {
-            
+
             sr.sortingOrder = baseOrderInLayer + index;
         }
 
@@ -126,7 +126,7 @@ public class PratoController : MonoBehaviour
         var drag = ingrediente.GetComponent<Assets.Scripts.CenaJogo.ArrastarItensController>();
         if (drag != null) Destroy(drag);
 
-       
+
         var col2D = ingrediente.GetComponent<Collider2D>();
         if (col2D != null) col2D.enabled = false;
     }
@@ -136,7 +136,7 @@ public class PratoController : MonoBehaviour
         Transform alvo = transform.Find("IngredientesEmpilhados");
         if (alvo == null)
         {
-            
+
             alvo = transform;
         }
 
@@ -159,28 +159,36 @@ public class PratoController : MonoBehaviour
         return sb.ToString();
     }
 
-   
+
     private string ConverterNomeParaCodigo(string nome)
     {
-        
-        switch (nome)
-        {
-            case "PaoBase":
-                return "B"; 
+        // Normaliza o nome removendo sufixos (Clone), espaços, números, etc.
+        if (string.IsNullOrEmpty(nome))
+            return "?";
 
-            case "Carne":
-                return "C";
+        // Remove "(Clone)" repetidos
+        nome = nome.Replace("(Clone)", "");
 
-            case "Queijo":
-                return "Q";
+        // Remove possíveis espaços em branco e deixa tudo consistente
+        nome = nome.Trim();
 
-            case "PaoCima":
-            case "Pao":
-                return "P"; 
+        // Agora, como existem ingredientes com nomes maiores, vamos checar por prefixo
+        // Ex: "Pao", "PaoBase", "PaoCima", "PaoCloneClone" → todos começam com "Pao"
 
-            default:
-                return "?"; 
-        }
+        if (nome.StartsWith("PaoBase", System.StringComparison.OrdinalIgnoreCase))
+            return "B"; // Base do pão recebe B
+
+        if (nome.StartsWith("Carne", System.StringComparison.OrdinalIgnoreCase))
+            return "C";
+
+        if (nome.StartsWith("Queijo", System.StringComparison.OrdinalIgnoreCase))
+            return "Q";
+
+        if (nome.StartsWith("PaoCima", System.StringComparison.OrdinalIgnoreCase) ||
+            nome.StartsWith("Pao", System.StringComparison.OrdinalIgnoreCase))
+            return "P";
+
+        return "?";
     }
 }
 

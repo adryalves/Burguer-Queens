@@ -1,5 +1,4 @@
-﻿
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.CenaJogo
@@ -28,7 +27,6 @@ namespace Assets.Scripts.CenaJogo
 
         public bool PodeReceberLaranja()
         {
-           
             return !estaProcessando && !copoPronto;
         }
 
@@ -51,15 +49,13 @@ namespace Assets.Scripts.CenaJogo
             if (maquinaRenderer != null && spriteMaquinaVazia != null)
                 maquinaRenderer.sprite = spriteMaquinaVazia;
 
-           
             if (copoDestino != null)
-                copoDestino.EncherCopo();
+                copoDestino.EncherCopo(this);
 
             estaProcessando = false;
             copoPronto = true;
         }
 
-        
         public void NotificarCopoLiberado()
         {
             copoPronto = false;

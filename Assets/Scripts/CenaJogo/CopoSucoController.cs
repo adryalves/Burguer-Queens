@@ -37,14 +37,14 @@ namespace Assets.Scripts.CenaJogo
             if (sr != null && spriteCopoVazio != null)
                 sr.sprite = spriteCopoVazio;
 
-            
             if (drag != null)
                 drag.enabled = false;
         }
 
-        public void EncherCopo()
+        public void EncherCopo(MaquinaSucoController maquina)
         {
             copoCheio = true;
+            maquinaSuco = maquina;
 
             if (sr != null && spriteCopoCheio != null)
                 sr.sprite = spriteCopoCheio;
@@ -80,7 +80,6 @@ namespace Assets.Scripts.CenaJogo
 
             if (area.areaName == "Bandeja")
             {
-                
                 sobreBandeja = false;
 
                 if (bandejaTransform == col.transform)
@@ -92,17 +91,20 @@ namespace Assets.Scripts.CenaJogo
             }
         }
 
-
         public void OnDragReleased()
         {
+            if (maquinaSuco != null)
+            {
+                maquinaSuco.NotificarCopoLiberado();
+                maquinaSuco = null;
+            }
+
             if (!copoCheio)
             {
-                
                 VoltarParaOrigemVazio();
                 return;
             }
 
-           
             if (sobreBandeja && bandejaTransform != null)
             {
                 transform.SetParent(bandejaTransform);
@@ -114,25 +116,21 @@ namespace Assets.Scripts.CenaJogo
                 if (col2D != null)
                     col2D.enabled = false;
 
-               
                 if (bandejaController != null)
                     bandejaController.RegistrarCopoNaBandeja(this);
 
                 return;
             }
 
-           
             if (sobreLixeira)
             {
                 VoltarParaOrigemVazio();
                 return;
             }
 
-           
             transform.SetParent(null);
             transform.position = posicaoInicial;
 
-           
             if (bandejaController != null && bandejaController.copoNaBandeja == this)
                 bandejaController.copoNaBandeja = null;
 
@@ -146,7 +144,6 @@ namespace Assets.Scripts.CenaJogo
                 col2D.enabled = true;
         }
 
-        
         public void VoltarParaOrigemVazio()
         {
             copoCheio = false;
@@ -162,17 +159,24 @@ namespace Assets.Scripts.CenaJogo
 
             if (col2D != null)
                 col2D.enabled = true;
+
+            if (maquinaSuco != null)
+            {
+                maquinaSuco.NotificarCopoLiberado();
+                maquinaSuco = null;
+            }
         }
 
-       
         public void ResetarCopoParaOrigem()
         {
             VoltarParaOrigemVazio();
 
             if (maquinaSuco != null)
+            {
                 maquinaSuco.NotificarCopoLiberado();
+                maquinaSuco = null;
+            }
 
-           
             bandejaTransform = null;
             bandejaController = null;
         }
