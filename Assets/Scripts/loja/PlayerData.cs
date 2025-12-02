@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class playerData : MonoBehaviour
+public class playerData : MonoBehaviour, IJogadorPersistencia
 {
     public static playerData Instance;
 
@@ -17,13 +17,13 @@ public class playerData : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+           // DontDestroyOnLoad(gameObject);
 
             PlayerSave save = SaveSystem.Load();
 
             if (save != null)
             {
-                moedas = save.moedas;
+                
                 frigideiras = save.frigideiras;
                 liquidificadores = save.liquidificadores;
                 bandejas = save.bandejas;
@@ -106,7 +106,6 @@ public class playerData : MonoBehaviour
     {
         PlayerSave data = new PlayerSave
         {
-            moedas = moedas,
             frigideiras = frigideiras,
             liquidificadores = liquidificadores,
             bandejas = bandejas,
@@ -118,4 +117,15 @@ public class playerData : MonoBehaviour
 
         SaveSystem.Save(data);
     }
+
+        public void LoadData(DadosJogador data)
+    {
+        moedas = data.moedas;
+    }
+
+    public void SaveData(DadosJogador data)
+    {
+        data.moedas = moedas;
+    }
+
 }
