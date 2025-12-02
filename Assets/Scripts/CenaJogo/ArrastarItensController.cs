@@ -28,12 +28,13 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseDown()
         {
+            if (!enabled) return;
+
             var carne = GetComponent<CarneController>();
             if (carne != null && !carne.PodeSerArrastada())
                 return;
 
             dragging = true;
-
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0f;
             offset = transform.position - mouse;
@@ -44,7 +45,7 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseDrag()
         {
-            if (!dragging) return;
+            if (!dragging || !enabled) return;
 
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0f;
@@ -53,7 +54,7 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseUp()
         {
-            if (!dragging) return;
+            if (!dragging || !enabled) return;
 
             dragging = false;
 
@@ -72,6 +73,14 @@ namespace Assets.Scripts.CenaJogo
         {
             startPosition = pos;
             transform.position = pos;
+        }
+
+        public void AtivarInteracao(bool ativo)
+        {
+            enabled = ativo;
+
+            if (!ativo && sr != null)
+                sr.sortingOrder = sortingOrderOriginal;
         }
     }
 }
