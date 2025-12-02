@@ -12,13 +12,12 @@ namespace Assets.Scripts.CenaJogo
         private SpriteRenderer sr;
         private int sortingOrderOriginal;
 
-        public bool podeInteragir = true;
+        public bool EstaSendoArrastado => dragging;
 
         void Start()
         {
             startPosition = transform.position;
 
-           
             sr = GetComponent<SpriteRenderer>();
             if (sr == null)
                 sr = GetComponentInChildren<SpriteRenderer>();
@@ -29,8 +28,8 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseDown()
         {
-            if (!podeInteragir) return;
-           
+            if (!enabled) return;
+
             var carne = GetComponent<CarneController>();
             if (carne != null && !carne.PodeSerArrastada())
                 return;
@@ -40,15 +39,13 @@ namespace Assets.Scripts.CenaJogo
             mouse.z = 0f;
             offset = transform.position - mouse;
 
-           
             if (sr != null && GetComponent<BandejaController>() == null)
                 sr.sortingOrder = 1000;
         }
 
         void OnMouseDrag()
         {
-            if (!podeInteragir) return;
-            if (!dragging) return;
+            if (!dragging || !enabled) return;
 
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0f;
@@ -57,15 +54,13 @@ namespace Assets.Scripts.CenaJogo
 
         void OnMouseUp()
         {
-            if (!dragging) return;
+            if (!dragging || !enabled) return;
 
             dragging = false;
 
-            
             if (sr != null && GetComponent<BandejaController>() == null)
                 sr.sortingOrder = sortingOrderOriginal;
 
-            
             SendMessage("OnDragReleased", SendMessageOptions.DontRequireReceiver);
         }
 
@@ -80,9 +75,12 @@ namespace Assets.Scripts.CenaJogo
             transform.position = pos;
         }
 
-        public void AtivarInteracao(bool estado)
+        public void AtivarInteracao(bool ativo)
         {
-            podeInteragir = estado;
+            enabled = ativo;
+
+            if (!ativo && sr != null)
+                sr.sortingOrder = sortingOrderOriginal;
         }
     }
 }

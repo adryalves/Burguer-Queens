@@ -4,12 +4,11 @@ using UnityEngine.UI;
 public class TrocarImagem : MonoBehaviour
 {
     [Header("Referências")]
-    public Image background;         // arrastar o objeto UI Image (Background) aqui
-    public Sprite novaImagem;        // arrastar o sprite novo
-    public Sprite imagemOriginal;    // arrastar o sprite original (opcional)
-    public GameObject popup;         // arrastar o objeto do pop-up aqui
+    public Image background;        
+    public Sprite novaImagem;       
+    public Sprite imagemOriginal;    
+    public GameObject popup;        
 
-    // Abre o popup e troca a imagem (com checagens para evitar NullReference)
     public void AbrirPopUp()
     {
         if (background == null) Debug.LogWarning("TrocarImagem: background não está atribuído no Inspector.");
@@ -20,7 +19,6 @@ public class TrocarImagem : MonoBehaviour
         else Debug.LogWarning("TrocarImagem: popup não está atribuído no Inspector.");
     }
 
-    // Fecha o popup e restaura a imagem original (se atribuída)
     public void FecharPopUp()
     {
         if (background == null) Debug.LogWarning("TrocarImagem: background não está atribuído no Inspector.");

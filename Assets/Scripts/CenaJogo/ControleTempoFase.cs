@@ -9,7 +9,11 @@ public class ControleTempoFase : MonoBehaviour
     private float tempoRestante;
     private bool faseEncerrada = false;
 
-    public TextMeshProUGUI textoRelogio;
+    public TextMeshProUGUI Relogio;
+
+    [Header("PopUpGanharPerder de Resultado")]
+  
+    public GameObject PopUpGanharPerder;  
 
     [Header("Pop-up Final")]
     public GameObject popUpFinal;         // Janela do pop-up final
@@ -49,7 +53,7 @@ public class ControleTempoFase : MonoBehaviour
     {
         int minutos = Mathf.FloorToInt(tempoRestante / 60);
         int segundos = Mathf.FloorToInt(tempoRestante % 60);
-        textoRelogio.text = $"{minutos:00}:{segundos:00}";
+        Relogio.text = $"{minutos:00}:{segundos:00}";
     }
 
    void EncerrarFase()
