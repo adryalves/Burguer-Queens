@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 
 namespace Assets.Scripts.CenaJogo
 {
@@ -7,18 +7,15 @@ namespace Assets.Scripts.CenaJogo
         private bool estaSobreMaquina = false;
         private MaquinaSucoController maquinaAlvo;
 
-       
         public void OnDragReleased()
         {
             if (estaSobreMaquina && maquinaAlvo != null && maquinaAlvo.PodeReceberLaranja())
             {
-               
                 maquinaAlvo.ProcessarLaranja();
                 Destroy(gameObject);
             }
             else
             {
-               
                 Destroy(gameObject);
             }
         }

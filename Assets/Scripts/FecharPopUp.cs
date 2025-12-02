@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FecharPopUp : MonoBehaviour
 {
-    public GameObject popUp; // painel que será fechado
+    public GameObject popUp; 
 
     public void Fechar()
     {
