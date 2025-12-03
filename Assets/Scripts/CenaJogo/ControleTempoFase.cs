@@ -79,34 +79,34 @@ public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
     ganhouObj.SetActive(false);
     perdeuObj.SetActive(false);
 
-    botaoStart.SetActive(false); // Sempre mostrar o botão Start         
+    botaoStart.SetActive(false);    
     botaoProximo.SetActive(false); // Sempre mostrar o botão Próximo
     botaoTentarNovamente.SetActive(false); // Sempre mostrar o botão Tentar Nov
 
-    if (controller != null){
-        controller.SalvarDados();
-
-    }
 
     int requisitoDaFase = popupRequisitos.requisitos.GetRequisitoDaFase(numeroDaFase);
     popupRequisitos.MostrarPopup(numeroDaFase);
 
     bool ganhou = controller.pontuacaoFase >= requisitoDaFase;
 
+    if (controller != null){
+        controller.SalvarDados(ganhou);
+
+    }
     // Agora mostra o correto
     if (ganhou)
     {
         ganhouObj.SetActive(true);
         botaoStart.SetActive(true); 
         botaoProximo.SetActive(true); 
-        fase = numeroDaFase + 1; 
+        // fase = numeroDaFase + 1; 
     }
     else
     {
         perdeuObj.SetActive(true);
         botaoTentarNovamente.SetActive(true); // Mostrar o botão Tentar Novamente ao perder
     }
-    RegistrarFase();
+    // RegistrarFase();
 
 
     // Debug.Log(ganhou ? "🎉 GANHOU a fase!" : "😢 PERDEU a fase!");

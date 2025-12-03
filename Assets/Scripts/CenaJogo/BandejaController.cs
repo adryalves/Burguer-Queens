@@ -8,7 +8,7 @@ namespace Assets.Scripts.CenaJogo
     {
 
         public PratoController pratoAtual;
-
+        public int fase=1;
 
         [HideInInspector] public CopoSucoController copoNaBandeja;
 
@@ -203,14 +203,19 @@ namespace Assets.Scripts.CenaJogo
 
             data.moedas += this.pontuacaoFase;
             data.pontuacaoPorFase[0] = this.pontuacaoFase;
-            
+            data.faseAtual = this.fase;
         }
-        public void SalvarDados()
+        public void SalvarDados(bool ganhou)
         {
+          if(ganhou){
+            this.fase +=1;
+          }
+
             if (JogadorPersistenciaManager.Instance != null)
                 {
                     JogadorPersistenciaManager.Instance.SavePlayerData();
-                }
+              }
+          
 }
 
     }
