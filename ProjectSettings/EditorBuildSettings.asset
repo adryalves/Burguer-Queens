@@ -14,6 +14,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CenaMenu.unity
     guid: 2d6c346e7eedcba4ca69970b505382fb
+  - enabled: 1
+    path: Assets/Scenes/CenaHistoria1.unity
+    guid: c68f3eff5e3b9ee4e9543d02a31027a6
+  - enabled: 1
+    path: Assets/Scenes/CenaHistoria2.unity
+    guid: 3e0d6c559b3aff444ac1fecc9b85473e
+  - enabled: 1
+    path: Assets/Scenes/CenaFase.unity
+    guid: 48b898412f121cb40b7a48ee7d4a0e62
+  - enabled: 1
+    path: Assets/Scenes/CenaLoja.unity
+    guid: a7bf853d74b9252408b7f064215928fc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI; // usar TMPro se preferir TextMeshPro
+using UnityEngine.UI; 
 
 public class TesteFaseController : MonoBehaviour
 {
@@ -12,9 +12,8 @@ public class TesteFaseController : MonoBehaviour
     public float tempoSimulado = 0f;
 
     [Header("UI (opcional)")]
-    public Text textoStatus; // arraste seu Text aqui ou use TMP_Text
+    public Text textoStatus;
 
-    // Método público para ligar ao botão
     public void SimularResultado()
     {
         Debug.Log($"Simulação — moedas: {moedasSimuladas}, tempo: {tempoSimulado}s (necessário: {moedasNecessarias}, max: {tempoMaximo}s)");
@@ -33,7 +32,6 @@ public class TesteFaseController : MonoBehaviour
         }
     }
 
-    // Método para permitir simular incrementalmente no Play (opcional)
     public void AdicionarMoeda(int qtd = 1)
     {
         moedasSimuladas += qtd;

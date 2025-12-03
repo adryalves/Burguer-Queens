@@ -59,6 +59,6 @@ public class TelaInicialController : MonoBehaviour
 
     public void IniciarJogo()
     {
-        SceneManager.LoadScene("CenaMenu");
+        SceneManager.LoadScene("CenaHistoria1");
     }
 }
