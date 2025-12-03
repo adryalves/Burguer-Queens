@@ -6,6 +6,7 @@ using Assets.Scripts.Menu;
 public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
 {
     public float tempoTotal = 60f;
+    public int fase=1;
     
     private float tempoRestante;
     private bool faseEncerrada = false;
@@ -96,14 +97,16 @@ public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
     if (ganhou)
     {
         ganhouObj.SetActive(true);
-        botaoStart.SetActive(true); // Mostrar o botão Start ao ganhar
-        botaoProximo.SetActive(true); // Mostrar o botão Próximo ao ganhar
+        botaoStart.SetActive(true); 
+        botaoProximo.SetActive(true); 
+        fase = numeroDaFase + 1; 
     }
     else
     {
         perdeuObj.SetActive(true);
         botaoTentarNovamente.SetActive(true); // Mostrar o botão Tentar Novamente ao perder
     }
+    RegistrarFase();
 
 
     // Debug.Log(ganhou ? "🎉 GANHOU a fase!" : "😢 PERDEU a fase!");
@@ -116,6 +119,15 @@ public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
 
     public void SaveData(DadosJogador data)
     {
-     
+     data.faseAtual = this.fase;
     }
+
+    public void RegistrarFase()
+        {
+            if (JogadorPersistenciaManager.Instance != null)
+                {
+                    JogadorPersistenciaManager.Instance.SavePlayerData();
+                }
+}
+
 }
