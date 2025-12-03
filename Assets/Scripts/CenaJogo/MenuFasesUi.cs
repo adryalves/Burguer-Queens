@@ -11,42 +11,29 @@ public class MenuFaseUI : MonoBehaviour, IJogadorPersistencia
     [Header("Textos que mostram o REQUISITO da fase (Fase 1 -> índice 0)")]
     public TextMeshProUGUI[] textosPontuacao;
 
-    private int[] pontuacoes = new int[0];
-    private int[] moedas = new int[0];
+    
+    private int moedasDasFases;
     private int[] requisitoPorFase = new int[4] { 150, 0, 0, 0 };
 
     public void LoadData(DadosJogador data)
     {
         if (data == null)
         {
-            pontuacoes = new int[0];
-            moedas = new int[0];
+            moedasDasFases = 0;
             AtualizarUI();
             return;
         }
+        moedasDasFases = data.pontuacaoPorFase[0];
 
-        if (data.pontuacaoPorFase == null)
-            pontuacoes = new int[0];
-        else
-            pontuacoes = data.pontuacaoPorFase.ToArray(); 
 
-        if (data.moedaoPorFase == null)
-            moedas = new int[0];
-        else
-            moedas = data.moedaoPorFase.ToArray(); 
-
-        Debug.Log("✅ Moedas carregadas do JSON: " + string.Join(", ", moedas));
+        Debug.Log("✅ Moedas carregadas do JSON: " + string.Join(", ", moedasDasFases));
 
         AtualizarUI();
     }
 
     public void SaveData(DadosJogador data)
     {
-        if (data != null && moedas != null)
-        {
-            data.moedaoPorFase = new List<int>(moedas);
-            Debug.Log("💾 Moedas salvas no JSON: " + string.Join(", ", moedas));
-        }
+        
     }
 
     void Start()
@@ -54,15 +41,7 @@ public class MenuFaseUI : MonoBehaviour, IJogadorPersistencia
         AtualizarUI();
     }
 
-    public void AdicionarMoedas(int faseIndex, int quantidade)
-    {
-        if (faseIndex >= 0 && faseIndex < moedas.Length)
-        {
-            moedas[faseIndex] += quantidade;
-            Debug.Log($"🪙 Moeda adicionada na fase {faseIndex + 1}. Total: {moedas[faseIndex]}");
-            AtualizarUI();
-        }
-    }
+   
 
     public void AtualizarUI()
     {

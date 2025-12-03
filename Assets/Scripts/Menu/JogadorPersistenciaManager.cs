@@ -60,24 +60,6 @@ namespace Assets.Scripts.Menu
             }
         }
 
-         // Retorna a quantidade de moedas salvas para uma fase (fase começa em 1)
-        public int GetMoedasDaFase(int fase)
-        {
-            if (playerData == null)
-            {
-                LoadPlayerData();
-            }
-
-            if (playerData == null)
-                return 0;
-
-            int idx = fase - 1;
-            if (playerData.moedaoPorFase != null && idx >= 0 && idx < playerData.moedaoPorFase.Count)
-                return playerData.moedaoPorFase[idx];
-
-            return 0;
-        }
-
         public void SavePlayerData()
         {
             foreach (var obj in persistenceObjects)
