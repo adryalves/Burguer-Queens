@@ -8,7 +8,7 @@ namespace Assets.Scripts.CenaJogo
     {
 
         public PratoController pratoAtual;
-
+        public int fase=1;
 
         [HideInInspector] public CopoSucoController copoNaBandeja;
 
@@ -19,8 +19,8 @@ namespace Assets.Scripts.CenaJogo
         private bool sobreCliente = false;
         private bool sobreLixeira = false;
 
+        public int pontuacaoFase=0;
 
-        public int pontuacaoFase = 0;
 
         public int moedas;
 
@@ -35,7 +35,7 @@ namespace Assets.Scripts.CenaJogo
             if (pratoAtual != null)
             {
                 pratoAtual.transform.position =
-                transform.position + new Vector3(0f, 0.1f, 0f);
+                    transform.position + new Vector3(0f, 0.1f, 0f);
             }
         }
 
@@ -77,24 +77,23 @@ namespace Assets.Scripts.CenaJogo
 
                 bool pedidoPerfeito;
                 moedas = clienteAtual.RegistrarEntrega(sucoEntregue, codigoEntregue, out pedidoPerfeito);
+                Debug.Log("Valor de moedas recebido: " + moedas);
                 pontuacaoFase += moedas;
-
-
-                if (JogadorPersistenciaManager.Instance != null)
-                {
-                    JogadorPersistenciaManager.Instance.SavePlayerData();
-                }
+                Debug.Log("Pontuação da fase atualizada: " + pontuacaoFase);
+                
 
 
                 Destroy(clienteAtual.gameObject);
                 clienteAtual = null;
 
+                // Destroi o prato
                 if (pratoAtual != null)
                 {
                     Destroy(pratoAtual.gameObject);
                     pratoAtual = null;
                 }
 
+                // Reseta o copo (volta para origem vazio)
                 if (copoNaBandeja != null)
                 {
                     copoNaBandeja.VoltarParaOrigemVazio();
@@ -105,6 +104,9 @@ namespace Assets.Scripts.CenaJogo
                 return;
             }
 
+            // =========================
+            // JOGAR FORA NA LIXEIRA
+            // =========================
             if (sobreLixeira && (temPratoComLanche || temCopo))
             {
                 if (pratoAtual != null)
@@ -123,6 +125,7 @@ namespace Assets.Scripts.CenaJogo
                 return;
             }
 
+            // Caso não esteja nem em cliente nem em lixeira, apenas volta
             VoltarParaPosicaoInicial();
         }
 
@@ -182,6 +185,9 @@ namespace Assets.Scripts.CenaJogo
             }
         }
 
+        // =========================
+        // Persistência de jogador
+        // =========================
         public void RegistrarCopoNaBandeja(CopoSucoController copo)
         {
             copoNaBandeja = copo;
@@ -189,12 +195,28 @@ namespace Assets.Scripts.CenaJogo
 
         public void LoadData(DadosJogador data)
         {
+            // Nada para carregar aqui por enquanto
         }
 
         public void SaveData(DadosJogador data)
         {
-            data.moedas += this.moedas;
-            data.pontuacaoPorFase[0] += this.pontuacaoFase;
+
+            data.moedas += this.pontuacaoFase;
+            data.pontuacaoPorFase[0] = this.pontuacaoFase;
+            data.faseAtual = this.fase;
         }
+        public void SalvarDados(bool ganhou)
+        {
+          if(ganhou){
+            this.fase +=1;
+          }
+
+            if (JogadorPersistenciaManager.Instance != null)
+                {
+                    JogadorPersistenciaManager.Instance.SavePlayerData();
+              }
+          
+}
+
     }
 }

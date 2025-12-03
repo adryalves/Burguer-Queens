@@ -8,4 +8,11 @@ public class FecharPopUp : MonoBehaviour
     {
         popUp.SetActive(false);
     }
+
+    public void fecharParaMenu()
+    {
+        Time.timeScale = 1f; 
+         popUp.SetActive(false);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("CenaMenu");
+    }
 }

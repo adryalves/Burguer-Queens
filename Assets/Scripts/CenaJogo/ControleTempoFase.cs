@@ -1,27 +1,45 @@
-using Assets.Scripts.CenaJogo;
 using UnityEngine;
 using TMPro;
+using Assets.Scripts.CenaJogo; // NECESSÁRIO para ArrastarItensController
+using Assets.Scripts.Menu;
 
-public class ControleTempoFase : MonoBehaviour
+public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
 {
     public float tempoTotal = 60f;
+    public int fase=1;
+    
     private float tempoRestante;
     private bool faseEncerrada = false;
 
-    public TextMeshProUGUI Relogio;
+    public TextMeshProUGUI textoRelogio;
 
-    [Header("PopUpGanharPerder de Resultado")]
-  
-    public GameObject PopUpGanharPerder;  
+    [Header("Pop-up Final")]
+    public GameObject popUpFinal;         // Janela do pop-up final
+    public GameObject ganhouObj;          // Imagem de check
+    public GameObject perdeuObj;          // Imagem de X
+
+    [Header("Pop-up Buttons")]
+    public GameObject botaoStart;                // Botão para iniciar (aparece ao ganhar)
+    public GameObject botaoProximo;              // Botão para próxima fase (aparece ao ganhar)
+    public GameObject botaoTentarNovamente;      // Botão para tentar novamente (aparece ao perder)
+
+    [Header("Requisitos da Fase")]
+    public MostrarRequisitoDeFase popupRequisitos;
+    public int numeroDaFase = 1;          // Fase atual (configure no Inspector)
+    int moedasDoJogador;
+    public BandejaController controller;
 
     void Start()
     {
         tempoRestante = tempoTotal;
 
-
-
-        if (PopUpGanharPerder != null)
-            PopUpGanharPerder.SetActive(false);
+        if (popUpFinal != null) popUpFinal.SetActive(false);
+        if (ganhouObj != null) ganhouObj.SetActive(false);
+        if (perdeuObj != null) perdeuObj.SetActive(false);
+        // Inicializa botões do pop-up como invisíveis
+        if (botaoStart != null) botaoStart.SetActive(false);
+        if (botaoProximo != null) botaoProximo.SetActive(false);
+        if (botaoTentarNovamente != null) botaoTentarNovamente.SetActive(false);
     }
 
     void Update()
@@ -43,24 +61,73 @@ public class ControleTempoFase : MonoBehaviour
     {
         int minutos = Mathf.FloorToInt(tempoRestante / 60);
         int segundos = Mathf.FloorToInt(tempoRestante % 60);
-        Relogio.text = $"{minutos:00}:{segundos:00}";
+        textoRelogio.text = $"{minutos:00}:{segundos:00}";
     }
 
-    void EncerrarFase()
+   void EncerrarFase()
+{
+    faseEncerrada = true;
+
+    Time.timeScale = 0f;
+
+    var itens = FindObjectsByType<ArrastarItensController>(FindObjectsSortMode.None);
+    foreach (var item in itens)
+        item.AtivarInteracao(false);
+
+    popUpFinal.SetActive(true);
+
+    ganhouObj.SetActive(false);
+    perdeuObj.SetActive(false);
+
+    botaoStart.SetActive(false);    
+    botaoProximo.SetActive(false); // Sempre mostrar o botão Próximo
+    botaoTentarNovamente.SetActive(false); // Sempre mostrar o botão Tentar Nov
+
+
+    int requisitoDaFase = popupRequisitos.requisitos.GetRequisitoDaFase(numeroDaFase);
+    popupRequisitos.MostrarPopup(numeroDaFase);
+
+    bool ganhou = controller.pontuacaoFase >= requisitoDaFase;
+
+    if (controller != null){
+        controller.SalvarDados(ganhou);
+
+    }
+    // Agora mostra o correto
+    if (ganhou)
     {
-        faseEncerrada = true;
-
-        Time.timeScale = 0f;
-
-        ArrastarItensController[] itens = FindObjectsOfType<ArrastarItensController>();
-        foreach (var item in itens)
-        {
-            item.AtivarInteracao(false);
-        }
-
-
-        if (PopUpGanharPerder != null)
-            PopUpGanharPerder.SetActive(true);
-
+        ganhouObj.SetActive(true);
+        botaoStart.SetActive(true); 
+        botaoProximo.SetActive(true); 
+        // fase = numeroDaFase + 1; 
     }
+    else
+    {
+        perdeuObj.SetActive(true);
+        botaoTentarNovamente.SetActive(true); // Mostrar o botão Tentar Novamente ao perder
+    }
+    // RegistrarFase();
+
+
+    // Debug.Log(ganhou ? "🎉 GANHOU a fase!" : "😢 PERDEU a fase!");
+}
+
+    public void LoadData(DadosJogador data)
+    {
+        moedasDoJogador = data.pontuacaoPorFase[0];  
+    }
+
+    public void SaveData(DadosJogador data)
+    {
+     data.faseAtual = this.fase;
+    }
+
+    public void RegistrarFase()
+        {
+            if (JogadorPersistenciaManager.Instance != null)
+                {
+                    JogadorPersistenciaManager.Instance.SavePlayerData();
+                }
+}
+
 }

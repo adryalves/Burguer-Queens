@@ -32,7 +32,7 @@ public class MenuFasesScript : MonoBehaviour, IJogadorPersistencia
     {
         if (faseButtons.Length != 5 || faseImages.Length != 5 || spritesLiberados.Length != 5 || spritesBloqueados.Length != 4)
         {
-            Debug.LogError("É necessário configurar 5 Botões, 5 Imagens, 5 Sprites Liberados e 4 Sprites Bloqueados no Inspector!");
+            Debug.LogError("ï¿½ necessï¿½rio configurar 5 Botï¿½es, 5 Imagens, 5 Sprites Liberados e 4 Sprites Bloqueados no Inspector!");
             return;
         }
 
@@ -77,7 +77,7 @@ public class MenuFasesScript : MonoBehaviour, IJogadorPersistencia
              txtMoedas.text = moedas.ToString();
            
         else
-            Debug.LogError("txtMoedas não foi conectado no Inspector!");
+            Debug.LogError("txtMoedas nï¿½o foi conectado no Inspector!");
     }
 
     public void IrParaProximaFase()
