@@ -536,8 +536,8 @@ GameObject:
   - component: {fileID: 150923597}
   - component: {fileID: 150923598}
   - component: {fileID: 150923599}
-  - component: {fileID: 150923600}
   - component: {fileID: 150923601}
+  - component: {fileID: 150923602}
   m_Layer: 0
   m_Name: CenaController
   m_TagString: Untagged
@@ -601,18 +601,6 @@ MonoBehaviour:
   BotaoContinuar: {fileID: 101229789}
   BotaoVoltar: {fileID: 1547065637}
   BotaoReiniciar: {fileID: 708858521}
---- !u!114 &150923600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150923596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bf3ac9311c7daa4a9b75607c6cfec6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &150923601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +611,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 972f9a301ab4767488f62fbdfaf25994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &150923602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150923596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf3ac9311c7daa4a9b75607c6cfec6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &185443761

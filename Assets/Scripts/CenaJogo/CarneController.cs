@@ -106,7 +106,17 @@ namespace Assets.Scripts.CenaJogo
         void OnTriggerEnter2D(Collider2D col)
         {
             AreaDetector area = col.GetComponent<AreaDetector>();
-            if (area == null) return;
+            if (area == null)
+                return;
+
+            if (area.areaName != "Frigideira" &&
+                area.areaName != "Prato" &&
+                area.areaName != "Lixeira")
+            {
+                return;
+            }
+
+            
 
             if (area.areaName == "Frigideira")
             {
