@@ -17,6 +17,11 @@ public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
     public GameObject ganhouObj;          // Imagem de check
     public GameObject perdeuObj;          // Imagem de X
 
+    [Header("Pop-up Buttons")]
+    public GameObject botaoStart;                // Botão para iniciar (aparece ao ganhar)
+    public GameObject botaoProximo;              // Botão para próxima fase (aparece ao ganhar)
+    public GameObject botaoTentarNovamente;      // Botão para tentar novamente (aparece ao perder)
+
     [Header("Requisitos da Fase")]
     public MostrarRequisitoDeFase popupRequisitos;
     public int numeroDaFase = 1;          // Fase atual (configure no Inspector)
@@ -30,6 +35,10 @@ public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
         if (popUpFinal != null) popUpFinal.SetActive(false);
         if (ganhouObj != null) ganhouObj.SetActive(false);
         if (perdeuObj != null) perdeuObj.SetActive(false);
+        // Inicializa botões do pop-up como invisíveis
+        if (botaoStart != null) botaoStart.SetActive(false);
+        if (botaoProximo != null) botaoProximo.SetActive(false);
+        if (botaoTentarNovamente != null) botaoTentarNovamente.SetActive(false);
     }
 
     void Update()
@@ -69,13 +78,14 @@ public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
     ganhouObj.SetActive(false);
     perdeuObj.SetActive(false);
 
+    botaoStart.SetActive(false); // Sempre mostrar o botão Start         
+    botaoProximo.SetActive(false); // Sempre mostrar o botão Próximo
+    botaoTentarNovamente.SetActive(false); // Sempre mostrar o botão Tentar Nov
+
     if (controller != null){
         controller.SalvarDados();
 
     }
-
-   
-   
 
     int requisitoDaFase = popupRequisitos.requisitos.GetRequisitoDaFase(numeroDaFase);
     popupRequisitos.MostrarPopup(numeroDaFase);
@@ -86,10 +96,13 @@ public class ControleTempoFase : MonoBehaviour, IJogadorPersistencia
     if (ganhou)
     {
         ganhouObj.SetActive(true);
+        botaoStart.SetActive(true); // Mostrar o botão Start ao ganhar
+        botaoProximo.SetActive(true); // Mostrar o botão Próximo ao ganhar
     }
     else
     {
         perdeuObj.SetActive(true);
+        botaoTentarNovamente.SetActive(true); // Mostrar o botão Tentar Novamente ao perder
     }
 
 
