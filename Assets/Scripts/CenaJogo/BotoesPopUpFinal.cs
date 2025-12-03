@@ -6,7 +6,7 @@ public class BotoesPopupFinal : MonoBehaviour
     
     public void TentarNovamente()
     {
-        Time.timeScale = 1f; // volta o tempo ao normal
+        Time.timeScale = 1f; 
         Scene current = SceneManager.GetActiveScene();
         SceneManager.LoadScene(current.name);
     }
@@ -24,7 +24,7 @@ public class BotoesPopupFinal : MonoBehaviour
         
         
         if (proxima < SceneManager.sceneCountInBuildSettings)
-            SceneManager.LoadScene(proxima);
+            SceneManager.LoadScene("CenaMenu");
         else
             Debug.Log("Não existe próxima fase configurada!");
     }
@@ -33,6 +33,6 @@ public class BotoesPopupFinal : MonoBehaviour
     public void VoltarMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu"); 
+        SceneManager.LoadScene("CenaMenu"); 
     }
 }
